@@ -26,7 +26,7 @@ namespace hci_restaurant.Forms
             InitializeComponent();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

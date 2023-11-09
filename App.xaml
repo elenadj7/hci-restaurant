@@ -1,8 +1,7 @@
-﻿<Application x:Class="hci_restaurant.Forms.App"
+﻿<Application x:Class="hci_restaurant.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:hci_restaurant"
-             StartupUri="StartWindow.xaml">
+             StartupUri="Forms/StartWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
