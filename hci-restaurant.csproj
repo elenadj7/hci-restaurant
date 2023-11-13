@@ -9,11 +9,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Photos\background-photo.jpg" />
+    <None Remove="Resources\Photos\items.png" />
+    <None Remove="Resources\Photos\logo.png" />
+    <None Remove="Resources\Photos\logout.png" />
+    <None Remove="Resources\Photos\orders.png" />
+    <None Remove="Resources\Photos\procurements.png" />
+    <None Remove="Resources\Photos\settings.png" />
+    <None Remove="Resources\Photos\users.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySqlConnector" Version="2.2.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Photos\background-photo.jpg" />
+    <Resource Include="Resources\Photos\items.png" />
+    <Resource Include="Resources\Photos\logo.png" />
+    <Resource Include="Resources\Photos\logout.png" />
+    <Resource Include="Resources\Photos\orders.png" />
+    <Resource Include="Resources\Photos\procurements.png" />
+    <Resource Include="Resources\Photos\settings.png" />
+    <Resource Include="Resources\Photos\users.png" />
   </ItemGroup>
 
 </Project>
