@@ -11,23 +11,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace hci_restaurant.Windows
+namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class ManagerWindow : Window
+    public partial class SettingsView : UserControl
     {
-        public ManagerWindow()
+        public SettingsView()
         {
             InitializeComponent();
-            // Load the dashboard page by default
-            //MainFrame.Navigate(new Uri("DashboardPage.xaml", UriKind.Relative));
         }
 
-        private void LightTheme_Click(object sender, RoutedEventArgs e)
+        /*private void LightTheme_Click(object sender, RoutedEventArgs e)
         {
             AppTheme.ChangeTheme(new Uri("../Themes/LightTheme.xaml", UriKind.Relative));
         }
@@ -56,6 +55,18 @@ namespace hci_restaurant.Windows
         {
             AppLanguage.ChangeLanguage(new Uri("../Languages/SerbianCyrillicLanguage.xaml", UriKind.Relative));
         }
-    }
 
+        private void SaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Language_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Theme_Click(object sender, RoutedEventArgs e)
+        {
+
+        }*/
+    }
 }

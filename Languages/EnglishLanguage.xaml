@@ -11,4 +11,13 @@
     <system:String x:Key="Logout">Log out</system:String>
     <system:String x:Key="Procurements">Procurements</system:String>
     <system:String x:Key="Items">Items</system:String>
+    <system:String x:Key="Name">Name</system:String>
+    <system:String x:Key="Surname">Surname</system:String>
+    <system:String x:Key="Salary">Salary</system:String>
+    <system:String x:Key="Role">Role</system:String>
+    <system:String x:Key="AddNewUser">Add New User</system:String>
+    <system:String x:Key="Filter">Filter:</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Theme">Theme</system:String>
+    <system:String x:Key="Language">Language</system:String>
 </ResourceDictionary>

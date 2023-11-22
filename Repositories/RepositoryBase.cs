@@ -1,18 +1,19 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace hci_restaurant.Data.MySQL
+namespace hci_restaurant.Repositories
 {
-    internal class MySQLUtil
+    public class RepositoryBase
     {
-        private static readonly string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
-        public static MySqlConnection? GetMySQLConnection()
+        public static MySqlConnection? GetConnection()
         {
             MySqlConnection? connection = null;
             try
@@ -32,12 +33,12 @@ namespace hci_restaurant.Data.MySQL
             connection?.Close();
         }
 
-        public static void Close(MySqlDataReader reader)
+        protected static void Close(MySqlDataReader reader)
         {
             reader?.Close();
         }
 
-        public static void Close(MySqlDataReader reader, MySqlConnection connection)
+        protected static void Close(MySqlDataReader reader, MySqlConnection connection)
         {
             Close(reader);
             Close(connection);

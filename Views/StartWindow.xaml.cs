@@ -1,5 +1,4 @@
-﻿using hci_restaurant.Data.MySQL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace hci_restaurant.Windows
+namespace hci_restaurant.Views
 {
     /// <summary>
     /// Interaction logic for StartWindow.xaml
@@ -26,19 +25,19 @@ namespace hci_restaurant.Windows
             InitializeComponent();
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        /*private void Login_Click(object sender, RoutedEventArgs e)
         {
             ManagerWindow mainWindow = new();
             mainWindow.Show();
             this.Close();
-        }
+        }*/
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        /*private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
-        }
+        }*/
     }
 }

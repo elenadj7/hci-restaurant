@@ -100,7 +100,6 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Item` (
   `price` DECIMAL(5,2) NOT NULL,
   `description` VARCHAR(200) NULL,
   `is_available` TINYINT NOT NULL,
-  `photo` VARCHAR(255) NULL,
   `category_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Item_Category1_idx` (`category_id` ASC) VISIBLE,
