@@ -44,9 +44,4 @@
     <Resource Include="Resources\Images\users.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Accounts\" />
-    <Folder Include="Models\Repositories\" />
-  </ItemGroup>
-
 </Project>

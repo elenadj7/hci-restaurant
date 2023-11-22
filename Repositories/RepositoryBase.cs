@@ -13,9 +13,9 @@ namespace hci_restaurant.Repositories
     {
         private static readonly string connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
-        public static MySqlConnection? GetConnection()
+        public static MySqlConnection GetConnection()
         {
-            MySqlConnection? connection = null;
+            MySqlConnection connection = null;
             try
             {
                 connection = new MySqlConnection(connectionString);

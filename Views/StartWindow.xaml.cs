@@ -25,13 +25,6 @@ namespace hci_restaurant.Views
             InitializeComponent();
         }
 
-        /*private void Login_Click(object sender, RoutedEventArgs e)
-        {
-            ManagerWindow mainWindow = new();
-            mainWindow.Show();
-            this.Close();
-        }*/
-
         /*private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)

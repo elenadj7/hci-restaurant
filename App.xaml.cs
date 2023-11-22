@@ -1,4 +1,5 @@
-﻿using System;
+﻿using hci_restaurant.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,19 @@ namespace hci_restaurant
     /// </summary>
     public partial class App : Application
     {
+        protected void ApplicationStart(object sender, EventArgs e)
+        {
+            StartWindow startWindow = new();
+            startWindow.Show();
+            startWindow.IsVisibleChanged += (s, ev) =>
+            {
+                if (startWindow.IsVisible == false && startWindow.IsLoaded)
+                {
+                    ManagerWindow mainWindow = new();
+                    mainWindow.Show();
+                    startWindow.Close();
+                }
+            };
+        }
     }
 }

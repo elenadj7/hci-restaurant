@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`User` (
   `password` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `surname` VARCHAR(45) NOT NULL,
-  `salary` VARCHAR(45) NOT NULL,
+  `salary` INT NOT NULL,
   `role` TINYINT NOT NULL,
   PRIMARY KEY (`username`))
 ENGINE = InnoDB;

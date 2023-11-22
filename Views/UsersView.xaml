@@ -37,7 +37,7 @@
                         </Button.Template>
                     </Button>
                     <TextBox x:Name="UsernameBox" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" Margin="632,0,0,0" Text="{DynamicResource Filter}"
-                             Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" Height="28" VerticalContentAlignment="Center" Width="150"/>
+                             Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" Height="28" VerticalContentAlignment="Center" Width="198"/>
                 </StackPanel>
             </Border>
 

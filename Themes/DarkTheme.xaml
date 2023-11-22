@@ -18,6 +18,7 @@
     <SolidColorBrush x:Key="LogOutRadioButton" Color="#CE5A67"/>
     <SolidColorBrush x:Key="SaveButton" Color="#9ED2BE"/>
     <SolidColorBrush x:Key="MouseOverSaveButton" Color="#618264"/>
+    <SolidColorBrush x:Key="ErrorText" Color="red"/>
 
     <Style x:Key="MenuButton" TargetType="RadioButton">
         <Setter Property="Height" Value="50"/>

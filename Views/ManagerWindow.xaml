@@ -89,7 +89,7 @@
                     <Border Grid.Row="1">
                         <ContentControl Height="625" HorizontalAlignment="Center" Margin="0,2,0,1" Width="1044">
                             <!-- TODO: -->
-                            <views:SettingsView/>
+                            <views:UsersView/>
                         </ContentControl>
                     </Border>
                 </Grid>
