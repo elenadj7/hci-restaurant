@@ -1,11 +1,12 @@
 ﻿using hci_restaurant.Models;
+using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Views;
-using hci_restaurant.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
@@ -23,7 +24,7 @@ namespace hci_restaurant.ViewModels
         private bool isVisible = true;
         private string errorMessage;
 
-        private UserRepository repository;
+        private IUserRepository repository;
 
         public string Username
         {
@@ -58,7 +59,7 @@ namespace hci_restaurant.ViewModels
 
         public LoginViewModel()
         {
-            repository = new();
+            repository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
         }
 
@@ -72,10 +73,23 @@ namespace hci_restaurant.ViewModels
         private void ExecuteLoginCommand(object parameter)
         {
             
-            UserModel user = repository.AuthenticateUser(Username, Password);
+            UserModel? user = repository.AuthenticateUser(Username, Password);
             if (user != null)
             {
-                MessageBox.Show(user.Salary.ToString());
+                List<Claim> claims = new()
+                {
+                    new(ClaimTypes.Name, user.Username), 
+                    new("name", user.Name), 
+                    new("surname", user.Surname),
+                    new("salary", user.Salary+""), 
+                    new(ClaimTypes.Role, user.Role+"")
+                };
+
+                ClaimsIdentity identity = new(claims, "CustomAuthType");
+                Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
+
+                IsVisible = false;
+
             }
             else
             {

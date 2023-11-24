@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -22,9 +25,24 @@ namespace hci_restaurant
             {
                 if (startWindow.IsVisible == false && startWindow.IsLoaded)
                 {
-                    ManagerWindow mainWindow = new();
-                    mainWindow.Show();
-                    startWindow.Close();
+                    ClaimsPrincipal? currentUser = Thread.CurrentPrincipal as ClaimsPrincipal;
+                    if (currentUser != null && (currentUser?.Identity is ClaimsIdentity identity))
+                    {
+                        short role = short.Parse(identity.FindFirst(ClaimTypes.Role)?.Value);
+                        if(role == 1)
+                        {
+                            ManagerWindow managerWindow = new();
+                            managerWindow.Show();
+                        }
+                        else
+                        {
+                            MainWindow mainWindow = new();
+                            mainWindow.Show();
+                        }
+
+                        startWindow.Close();
+                    }
+
                 }
             };
         }

@@ -15,33 +15,7 @@ namespace hci_restaurant.Repositories
 
         public static MySqlConnection GetConnection()
         {
-            MySqlConnection connection = null;
-            try
-            {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return connection;
-        }
-
-        public static void Close(MySqlConnection connection)
-        {
-            connection?.Close();
-        }
-
-        protected static void Close(MySqlDataReader reader)
-        {
-            reader?.Close();
-        }
-
-        protected static void Close(MySqlDataReader reader, MySqlConnection connection)
-        {
-            Close(reader);
-            Close(connection);
+            return new MySqlConnection(connectionString);
         }
     }
 }

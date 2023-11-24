@@ -21,57 +21,46 @@ namespace hci_restaurant.Repositories
             throw new NotImplementedException();
         }
 
-        public UserModel AuthenticateUser(string username, SecureString password)
+        public UserModel? AuthenticateUser(string username, SecureString password)
         {
-            MySqlConnection conn = null;
-            try
+            string plainPassword = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(System.Runtime.InteropServices.Marshal.SecureStringToBSTR(password));
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
             {
-                string plainPassword = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(System.Runtime.InteropServices.Marshal.SecureStringToBSTR(password));
-                conn = RepositoryBase.GetConnection();
-                MySqlCommand cmd = new MySqlCommand("GetUser", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@username_", MySqlDbType.String).Value = username;
-                cmd.Parameters.Add("@password_", MySqlDbType.String).Value = plainPassword;
-                cmd.Parameters.Add("@status_", MySqlDbType.Int32).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@name", MySqlDbType.String).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@surname", MySqlDbType.String).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@salary", MySqlDbType.Int32).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@role", MySqlDbType.Int16).Direction = ParameterDirection.Output;
-                cmd.ExecuteNonQuery();
+                connection.Open();
 
-                int status = 0;
-                if (cmd.Parameters["@status_"].Value != DBNull.Value)
+                using (MySqlCommand command = new MySqlCommand("GetUser", connection))
                 {
-                    status = Convert.ToInt32(cmd.Parameters["@status_"].Value);
-                }
+                    command.CommandType = CommandType.StoredProcedure;
 
-                if (status == 1)
-                {
-                    UserModel user = new()
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@password_", MySqlDbType.String).Value = plainPassword;
+                    command.Parameters.Add("@status_", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        //TODO: fix 
-                        Username = username,
-                        Name = cmd.Parameters["@name"].Value?.ToString(),
-                        Surname = cmd.Parameters["@surname"].Value?.ToString(),
-                        Salary = Convert.ToInt32(cmd.Parameters["@salary"].Value),
-                        Role = Convert.ToInt16(cmd.Parameters["@role"].Value)
-                    };
+                        int status = Convert.ToInt32(command.Parameters["@status_"].Value);
 
-                    return user;
+                        if (status == 1)
+                        {
+                            if (reader.Read())
+                            {
+                                UserModel user = new()
+                                {
+                                    Username = username,
+                                    Name = reader.GetString(2),
+                                    Surname = reader.GetString(3),
+                                    Salary = reader.GetInt32(4),
+                                    Role = reader.GetInt16(5)
+                                };
+
+                                return user;
+                            }
+                        }
+
+                        return null;
+                    }
                 }
-
-                return null;
-
-            }
-            catch (Exception e)
-            {
-                //TODO
-                //MessageBox.Show(e.Message);
-                throw new Exception();
-            }
-            finally
-            {
-                RepositoryBase.Close(conn);
             }
         }
 

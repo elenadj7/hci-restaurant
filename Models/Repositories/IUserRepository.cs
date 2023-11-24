@@ -11,6 +11,6 @@ namespace hci_restaurant.Models.Repositories
     {
         UserModel GetUser(string username);
         IEnumerable<UserModel> GetAll();
-        public UserModel AuthenticateUser(string username, SecureString password);
+        public UserModel? AuthenticateUser(string username, SecureString password);
     }
 }
