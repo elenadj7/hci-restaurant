@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ManagerWindow.xaml
     /// </summary>
     public partial class ManagerWindow : Window
     {

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for StartWindow.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
     public partial class LoginWindow : Window
     {
@@ -24,13 +24,5 @@ namespace hci_restaurant.Views
         {
             InitializeComponent();
         }
-
-        /*private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if(e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }*/
     }
 }
