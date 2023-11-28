@@ -18,9 +18,9 @@ namespace hci_restaurant.Views
     /// <summary>
     /// Interaction logic for StartWindow.xaml
     /// </summary>
-    public partial class StartWindow : Window
+    public partial class LoginWindow : Window
     {
-        public StartWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }

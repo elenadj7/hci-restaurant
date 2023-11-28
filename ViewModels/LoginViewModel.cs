@@ -1,6 +1,7 @@
 ﻿using hci_restaurant.Models;
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
+using hci_restaurant.Services;
 using hci_restaurant.Views;
 using System;
 using System.Collections.Generic;
@@ -21,37 +22,38 @@ namespace hci_restaurant.ViewModels
     {
         private string username;
         private SecureString password;
-        private bool isVisible = true;
         private string errorMessage;
 
         private IUserRepository repository;
+        private IWindowService windowService;
 
         public string Username
         {
             get { return username; }
-            set { username = value;
-            OnPropertyChanged(nameof(Username));}
+            set
+            {
+                username = value;
+                OnPropertyChanged(nameof(Username));
+            }
         }
 
         public SecureString Password
         {
             get { return password; }
-            set {  password = value;
-            OnPropertyChanged(nameof(Password));}
-        }
-
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set { isVisible = value;
-            OnPropertyChanged(nameof(IsVisible));}
+            set
+            {
+                password = value;
+                OnPropertyChanged(nameof(Password));
+            }
         }
 
         public string ErrorMessage
         {
             get { return errorMessage; }
-            set { errorMessage = value;
-            OnPropertyChanged(nameof(ErrorMessage));
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 
@@ -60,6 +62,7 @@ namespace hci_restaurant.ViewModels
         public LoginViewModel()
         {
             repository = new UserRepository();
+            windowService = new WindowService();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
         }
 
@@ -88,8 +91,17 @@ namespace hci_restaurant.ViewModels
                 ClaimsIdentity identity = new(claims, "CustomAuthType");
                 Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
 
-                IsVisible = false;
+                short role = short.Parse(identity.FindFirst(ClaimTypes.Role)?.Value);
+                if(role == 1)
+                {
+                    windowService.OpenManagerWindow();
+                }
+                else
+                {
+                    windowService.OpenMainWindow();
+                }
 
+                windowService.Close(this);
             }
             else
             {

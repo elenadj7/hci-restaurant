@@ -50,35 +50,35 @@
                                    VerticalAlignment="Center" Margin="15,10,0,0"/>
                     </StackPanel>
 
-                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource UserRadioButton}">
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource UserRadioButton}" IsChecked="{Binding UsersSelected}" Command="{Binding ChangeUsersViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/users.png" Width="30" Height="30" Margin="50,0,0,0"/>
                             <TextBlock Text="{DynamicResource Users}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}">
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}" IsChecked="{Binding ItemsSelected}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/items.png" Width="30" Height="30" Margin="50,0,0,0"/>
                             <TextBlock Text="{DynamicResource Items}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
                     
-                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource ProcurementsRadioButton}">
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource ProcurementsRadioButton}" IsChecked="{Binding ProcurementsSelected}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/procurements.png" Width="30" Height="30" Margin="50,0,0,0"/>
                             <TextBlock Text="{DynamicResource Procurements}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
                     
-                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}">
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}" IsChecked="{Binding SettingsSelected}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/settings.png" Width="30" Height="30" Margin="50,0,0,0"/>
                             <TextBlock Text="{DynamicResource Settings}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource LogOutRadioButton}">
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource LogOutRadioButton}" Command="{Binding LogoutCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/logout.png" Width="30" Height="30" Margin="50,0,0,0"/>
                             <TextBlock Text="{DynamicResource Logout}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>

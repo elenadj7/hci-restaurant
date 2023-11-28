@@ -1,5 +1,4 @@
-﻿using hci_restaurant.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,16 +22,7 @@ namespace hci_restaurant.Views
         public ManagerWindow()
         {
             InitializeComponent();
-            // Load the dashboard page by default
-            //MainFrame.Navigate(new Uri("DashboardPage.xaml", UriKind.Relative));
         }
-
-        /*private void Logout_Click(object sender, RoutedEventArgs e)
-        {
-            StartWindow startWindow = new();
-            startWindow.Show();
-            this.Close();
-        }*/
     }
 
 }

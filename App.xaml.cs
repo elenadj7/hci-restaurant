@@ -19,32 +19,8 @@ namespace hci_restaurant
     {
         protected void ApplicationStart(object sender, EventArgs e)
         {
-            StartWindow startWindow = new();
-            startWindow.Show();
-            startWindow.IsVisibleChanged += (s, ev) =>
-            {
-                if (startWindow.IsVisible == false && startWindow.IsLoaded)
-                {
-                    ClaimsPrincipal? currentUser = Thread.CurrentPrincipal as ClaimsPrincipal;
-                    if (currentUser != null && (currentUser?.Identity is ClaimsIdentity identity))
-                    {
-                        short role = short.Parse(identity.FindFirst(ClaimTypes.Role)?.Value);
-                        if(role == 1)
-                        {
-                            ManagerWindow managerWindow = new();
-                            managerWindow.Show();
-                        }
-                        else
-                        {
-                            MainWindow mainWindow = new();
-                            mainWindow.Show();
-                        }
-
-                        startWindow.Close();
-                    }
-
-                }
-            };
+            LoginWindow loginWindow = new();
+            loginWindow.Show();
         }
     }
 }
