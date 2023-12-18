@@ -1,4 +1,30 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:system="clr-namespace:System;assembly=netstandard">
+    <system:String x:Key="Restaurant">RESTORAN</system:String>
+    <system:String x:Key="Description">Ukusni trenuci, posluženi svakodnevno!</system:String>
+    <system:String x:Key="Username">Korisničko ime</system:String>
+    <system:String x:Key="Password">Lozinka</system:String>
+    <system:String x:Key="LogIn">PRIJAVA</system:String>
+    <system:String x:Key="Users">Korisnici</system:String>
+    <system:String x:Key="Settings">Podešavanja</system:String>
+    <system:String x:Key="Logout">Odjava</system:String>
+    <system:String x:Key="Procurements">Nabavke</system:String>
+    <system:String x:Key="Items">Stavke</system:String>
+    <system:String x:Key="Name">Ime</system:String>
+    <system:String x:Key="Surname">Prezime</system:String>
+    <system:String x:Key="Salary">Plata</system:String>
+    <system:String x:Key="Role">Uloga</system:String>
+    <system:String x:Key="AddNewUser">Dodaj novog korisnika</system:String>
+    <system:String x:Key="Filter">Filter:</system:String>
+    <system:String x:Key="Save">Sačuvaj</system:String>
+    <system:String x:Key="Theme">Tema</system:String>
+    <system:String x:Key="Language">Jezik</system:String>
+    <system:String x:Key="Professional">Profesionalna</system:String>
+    <system:String x:Key="Dark">Tamna</system:String>
+    <system:String x:Key="Light">Svijetla</system:String>
+    <system:String x:Key="English">Engleski</system:String>
+    <system:String x:Key="Serbian">Srpski</system:String>
+    <system:String x:Key="Cyrillic">Srpski (ćirilica)</system:String>
+<!-- TODO: this is just for testing -->
 </ResourceDictionary>

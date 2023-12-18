@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for SettingsView.xaml
+    /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsView : UserControl
+    public partial class SettingsPage : Page
     {
-        public SettingsView()
+        public SettingsPage()
         {
             InitializeComponent();
         }
-
     }
 }

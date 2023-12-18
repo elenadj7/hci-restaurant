@@ -102,6 +102,15 @@ namespace hci_restaurant.ViewModels
                 }
 
                 windowService.Close(this);
+
+                string? theme = repository.GetTheme(user.Username);
+                string? language = repository.GetLanguage(user.Username);
+                
+                if(theme != null && language != null)
+                {
+                    ThemeService.CurrentTheme = theme;
+                    LanguageService.CurrentLanguage = language;
+                }
             }
             else
             {

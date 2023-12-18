@@ -71,13 +71,13 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Order` (
   CONSTRAINT `fk_Order_Table1`
     FOREIGN KEY (`table_id`)
     REFERENCES `myrestaurant`.`Table` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Order_User1`
     FOREIGN KEY (`user_username`)
     REFERENCES `myrestaurant`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Item` (
   CONSTRAINT `fk_Item_Category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `myrestaurant`.`Category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -124,13 +124,13 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Order_has_Item` (
   CONSTRAINT `fk_Order_has_Item_Order1`
     FOREIGN KEY (`order_id`)
     REFERENCES `myrestaurant`.`Order` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Order_has_Item_Item1`
     FOREIGN KEY (`item_id`)
     REFERENCES `myrestaurant`.`Item` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -145,8 +145,8 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Settings` (
   CONSTRAINT `fk_Settings_User1`
     FOREIGN KEY (`user_username`)
     REFERENCES `myrestaurant`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -161,8 +161,8 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Procurement` (
   CONSTRAINT `fk_Procurement_User1`
     FOREIGN KEY (`user_username`)
     REFERENCES `myrestaurant`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -180,13 +180,13 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Procurement_has_Item` (
   CONSTRAINT `fk_Procurement_has_Item_Procurement1`
     FOREIGN KEY (`procurement_id`)
     REFERENCES `myrestaurant`.`Procurement` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Procurement_has_Item_Item1`
     FOREIGN KEY (`item_id`)
     REFERENCES `myrestaurant`.`Item` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

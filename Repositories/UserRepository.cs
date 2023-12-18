@@ -64,9 +64,90 @@ namespace hci_restaurant.Repositories
             }
         }
 
-        public UserModel GetUser(string username)
+        public string? GetTheme(string username)
         {
-            throw new NotImplementedException();
+            using(MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using(MySqlCommand command = new MySqlCommand("GetTheme", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public string? GetLanguage(string username)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("GetLanguage", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public void UpdateTheme(string username, string theme)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UpdateTheme", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@newTheme_", MySqlDbType.String).Value = theme;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateLanguage(string username, string language)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UpdateLanguage", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@newLanguage_", MySqlDbType.String).Value = language;
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

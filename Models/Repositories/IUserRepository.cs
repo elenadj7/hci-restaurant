@@ -9,8 +9,11 @@ namespace hci_restaurant.Models.Repositories
 {
     interface IUserRepository
     {
-        UserModel GetUser(string username);
         IEnumerable<UserModel> GetAll();
         public UserModel? AuthenticateUser(string username, SecureString password);
+        public string? GetTheme(string username);
+        public string? GetLanguage(string username);
+        public void UpdateTheme(string username, string theme);
+        public void UpdateLanguage(string username, string language);
     }
 }

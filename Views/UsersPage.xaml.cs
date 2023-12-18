@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for UsersView.xaml
+    /// Interaction logic for UsersPage.xaml
     /// </summary>
-    public partial class UsersView : UserControl
+    public partial class UsersPage : Page
     {
-        public UsersView()
+        public UsersPage()
         {
             InitializeComponent();
         }

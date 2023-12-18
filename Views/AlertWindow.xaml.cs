@@ -1,4 +1,5 @@
-﻿using System;
+﻿using hci_restaurant.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,19 @@ using System.Windows.Shapes;
 namespace hci_restaurant.Views
 {
     /// <summary>
-    /// Interaction logic for ManagerWindow.xaml
+    /// Interaction logic for AlertWindow.xaml
     /// </summary>
-    public partial class ManagerWindow : Window
+    public partial class AlertWindow : Window
     {
-        public ManagerWindow()
+        public AlertWindow()
         {
             InitializeComponent();
         }
 
+        public AlertWindow(string message)
+        {
+            InitializeComponent();
+            DataContext = new AlertViewModel(message);
+        }
     }
-
 }

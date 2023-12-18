@@ -16,21 +16,27 @@ namespace hci_restaurant.Services
             window?.Close();
         }
 
+        public void OpenAlertWindow(string message)
+        {
+            AlertWindow alert = new(message);
+            alert.ShowDialog();
+        }
+
         public void OpenLoginWindow()
         {
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new();
             loginWindow.Show();
         }
 
         public void OpenMainWindow()
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new();
             mainWindow.Show();
         }
 
         public void OpenManagerWindow()
         {
-            ManagerWindow managerWindow = new ManagerWindow();
+            ManagerWindow managerWindow = new();
             managerWindow.Show();
         }
     }

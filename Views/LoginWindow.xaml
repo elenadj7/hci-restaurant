@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewModel="clr-namespace:hci_restaurant.ViewModels"
         xmlns:views="clr-namespace:hci_restaurant.CustomControls"
-        Title="Restaurant" Height="550" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Height="550" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Icon>
         <ImageSource>../Resources/Images/logo.png</ImageSource>
     </Window.Icon>

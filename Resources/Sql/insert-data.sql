@@ -20,4 +20,4 @@ insert into Item(id, name, price, description, is_available, category_id) values
 insert into Item(id, name, price, description, is_available, category_id) values(7, "Caj", 2, null, 0, 3);
 insert into Item(id, name, price, description, is_available, category_id) values(8, "Kafa", 1.5, null, 0, 3);
 
-
+insert into Settings(user_username, theme, language) values("admin", "Dark", "English");

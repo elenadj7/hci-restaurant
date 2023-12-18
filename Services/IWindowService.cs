@@ -12,5 +12,6 @@ namespace hci_restaurant.Services
         void Close(object viewModel);
         void OpenManagerWindow();
         void OpenMainWindow();
+        void OpenAlertWindow(string message);
     }
 }

@@ -20,4 +20,12 @@
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="Professional">Professional</system:String>
+    <system:String x:Key="Dark">Dark</system:String>
+    <system:String x:Key="Light">Light</system:String>
+    <system:String x:Key="English">English</system:String>
+    <system:String x:Key="Serbian">Serbian</system:String>
+    <system:String x:Key="Cyrillic">Serbian (Cyrillic)</system:String>
+    <system:String x:Key="Ok">Ok</system:String>
+    <system:String x:Key="SaveAlert">Your data has been successfully saved!</system:String>
 </ResourceDictionary>
