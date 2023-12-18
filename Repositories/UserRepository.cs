@@ -3,6 +3,7 @@ using hci_restaurant.Models.Repositories;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Security;
@@ -15,12 +16,6 @@ namespace hci_restaurant.Repositories
 {
     class UserRepository : IUserRepository
     {
-
-        public IEnumerable<UserModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public UserModel? AuthenticateUser(string username, SecureString password)
         {
             string plainPassword = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(System.Runtime.InteropServices.Marshal.SecureStringToBSTR(password));
@@ -145,6 +140,56 @@ namespace hci_restaurant.Repositories
 
                     command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
                     command.Parameters.Add("@newLanguage_", MySqlDbType.String).Value = language;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public ObservableCollection<UserModel> GetAll()
+        {
+            ObservableCollection<UserModel> users = new ();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("GetAllUsers", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            UserModel user = new()
+                            {
+                                Username = reader.GetString(0),
+                                Name = reader.GetString(2),
+                                Surname = reader.GetString(3),
+                                Salary = reader.GetInt32(4),
+                                Role = reader.GetInt16(5)
+                            };
+
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+
+            return users;
+        }
+
+        public void DeleteUser(string username)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("DeleteUser", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
                     command.ExecuteNonQuery();
                 }
             }

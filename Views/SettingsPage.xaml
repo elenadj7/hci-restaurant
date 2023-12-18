@@ -1,12 +1,8 @@
 ﻿<Page x:Class="hci_restaurant.Views.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:viewModel="clr-namespace:hci_restaurant.ViewModels"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="SettingsPage">
+      MinHeight="600" MinWidth="800">
 
     <Page.DataContext>
         <viewModel:SettingsViewModel/>
@@ -20,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,0,0,80">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <ComboBox VerticalAlignment="Center" Height="55" Width="220" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                               FontFamily="{DynamicResource MyFont}" Style="{DynamicResource ComboBox}" Margin="20" SelectedIndex="{Binding SelectedIntTheme}">
                         <ComboBoxItem Content="{DynamicResource Light}"/>

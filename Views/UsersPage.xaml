@@ -7,7 +7,7 @@
     <Page.DataContext>
         <viewModel:UsersViewModel/>
     </Page.DataContext>
-    
+
     <Border Background="{DynamicResource Background}">
         <Grid>
             <Grid.RowDefinitions>
@@ -16,9 +16,14 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="AddNewUser" Content="{DynamicResource AddNewUser}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="50,0,0,0" 
-                        Width="120" Height="40">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button x:Name="AddNewUser" Grid.Column="0" Content="{DynamicResource AddNewUser}" Foreground="{DynamicResource Text}" HorizontalAlignment="Left"
+                            FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="50,0,0,0" Height="40" Width="120">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{DynamicResource Button}"/>
@@ -38,28 +43,34 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <TextBox x:Name="UsernameBox" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" HorizontalAlignment="Stretch" Margin="632,0,0,0" Text="{DynamicResource Filter}"
-                         Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" Height="28" VerticalContentAlignment="Center" Width="198"/>
-                </StackPanel>
+                    <TextBox x:Name="UsernameBox" Grid.Column="1" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" 
+                             HorizontalAlignment="Right" Text="{DynamicResource Filter}" Width="300" Margin="0,0,50,0"
+                             Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" 
+                             Height="28" VerticalContentAlignment="Center"/>
+                </Grid>
             </Border>
 
             <Border Grid.Row="1">
-                <DataGrid x:Name="UsersDataGrid" Background="Transparent" MinWidth="951" HorizontalAlignment="Stretch" Margin="50,5,50,35" MinHeight="500" BorderThickness="1">
+                <DataGrid x:Name="UsersDataGrid" Background="Transparent" MinWidth="951" HorizontalAlignment="Stretch" Margin="50,5,50,35" Height="auto" Width="auto" 
+                          BorderThickness="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectedIndex="-1"
+                          HeadersVisibility="Column" SelectionUnit="FullRow" BorderBrush="Transparent">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{DynamicResource Username}" Binding="{Binding Username}" MinWidth="160" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" MinWidth="160" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="{DynamicResource Surname}" Binding="{Binding Surname}" MinWidth="160" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="{DynamicResource Salary}" Binding="{Binding Salary}" MinWidth="160" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="{DynamicResource Role}" Binding="{Binding Role}" MinWidth="160" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="{DynamicResource Username}" Binding="{Binding Username}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Surname}" Binding="{Binding Surname}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Salary}" Binding="{Binding Salary}" Width="*"/>
                         <DataGridTemplateColumn Header="#" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="EditUser">
-                                            <Image Source="../Resources/Photos/edit.png"/>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto" Height="auto">
+                                        <Button x:Name="EditUser" Height="auto" Width="auto" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                BorderThickness="0">
+                                            <Image Source="../Resources/Images/edit.png"/>
                                         </Button>
-                                        <Button x:Name="DeleteUser">
-                                            <Image Source="../Resources/Photos/delete.png"/>
+                                        <Button x:Name="DeleteUser" Height="auto" Width="auto" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
+                                                BorderThickness="0" Command="{Binding DataContext.DeleteUserCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                CommandParameter="{Binding}">
+                                            <Image Source="../Resources/Images/delete.png"/>
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
@@ -67,17 +78,52 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
 
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Style>
+                    </DataGrid.Resources>
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
                             <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
-                            <Setter Property="FontSize" Value="13"/>
-                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
                             <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
-                </DataGrid>
 
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="IsHitTestVisible" Value="True"/>
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
             </Border>
         </Grid>
     </Border>

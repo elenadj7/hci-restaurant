@@ -28,4 +28,8 @@
     <system:String x:Key="Cyrillic">Serbian (Cyrillic)</system:String>
     <system:String x:Key="Ok">Ok</system:String>
     <system:String x:Key="SaveAlert">Your data has been successfully saved!</system:String>
+    <system:String x:Key="Confirm">Confirm</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
+    <system:String x:Key="DeleteConfirm">Are you sure you want to delete </system:String>
+    <system:String x:Key="DeletedUser">You have successfully deleted the user</system:String>
 </ResourceDictionary>

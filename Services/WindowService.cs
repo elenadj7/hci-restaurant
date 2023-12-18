@@ -22,6 +22,12 @@ namespace hci_restaurant.Services
             alert.ShowDialog();
         }
 
+        public void OpenConfirmWindow(string message)
+        {
+            ConfirmWindow confirm = new(message);
+            confirm.ShowDialog();
+        }
+
         public void OpenLoginWindow()
         {
             LoginWindow loginWindow = new();

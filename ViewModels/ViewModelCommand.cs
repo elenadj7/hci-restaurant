@@ -12,8 +12,8 @@ namespace WPF_LoginForm.ViewModels
         
         private readonly Action<object> _executeAction;
         private readonly Predicate<object> _canExecuteAction;
+        private Action<string> executeDeleting;
 
-        
         public ViewModelCommand(Action<object> executeAction)
         {
             _executeAction = executeAction;

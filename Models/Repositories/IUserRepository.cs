@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -9,11 +10,13 @@ namespace hci_restaurant.Models.Repositories
 {
     interface IUserRepository
     {
-        IEnumerable<UserModel> GetAll();
-        public UserModel? AuthenticateUser(string username, SecureString password);
-        public string? GetTheme(string username);
-        public string? GetLanguage(string username);
-        public void UpdateTheme(string username, string theme);
-        public void UpdateLanguage(string username, string language);
+        ObservableCollection<UserModel> GetAll();
+        UserModel? AuthenticateUser(string username, SecureString password);
+        string? GetTheme(string username);
+        string? GetLanguage(string username);
+        void UpdateTheme(string username, string theme);
+        void UpdateLanguage(string username, string language);
+        void DeleteUser(string username);
+        
     }
 }

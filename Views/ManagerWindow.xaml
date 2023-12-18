@@ -91,7 +91,7 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0">
-                        <TextBlock Text="{Binding User.Username}" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="{DynamicResource MyFont}" FontWeight="Medium"
+                        <TextBlock Text="{Binding User.Username, StringFormat=@{0}}" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="{DynamicResource MyFont}" FontWeight="Medium"
                                    VerticalAlignment="Center" Margin="50,15,0,0"/>
                     </Border>
 
