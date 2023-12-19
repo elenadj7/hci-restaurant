@@ -20,8 +20,7 @@ namespace hci_restaurant.ViewModels
     public class ManagerViewModel : ViewModelBase
     {
         private UserModel user;
-        private IUserRepository userRepository;
-        private IWindowService windowService;
+        private readonly IWindowService windowService = new WindowService();
 
         private bool usersSelected = true;
         private bool itemsSelected = false;
@@ -71,6 +70,10 @@ namespace hci_restaurant.ViewModels
             {
                 itemsSelected = value;
                 OnPropertyChanged(nameof(ItemsSelected));
+                if (itemsSelected)
+                {
+                    CurrentPage = new ItemsPage();
+                }
             }
         }
 
@@ -101,8 +104,6 @@ namespace hci_restaurant.ViewModels
 
         public ManagerViewModel()
         {
-            userRepository = new UserRepository();
-            windowService = new WindowService();
             LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
             LoadCurrentUser();
         }

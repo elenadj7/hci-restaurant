@@ -92,3 +92,29 @@ BEGIN
     AND `role` = 0;
 END $$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetAllItems()
+BEGIN
+    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.is_available, `Category`.name AS category_name
+    FROM `Item`
+    INNER JOIN `Category` ON Item.category_id = Category.id;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteItem(IN id_ INT)
+BEGIN
+    DELETE FROM `Item` WHERE id = id_; 
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetAllCategories()
+BEGIN
+    SELECT * FROM `Category`;
+END $$
+DELIMITER ;

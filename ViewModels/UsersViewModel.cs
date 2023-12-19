@@ -71,7 +71,7 @@ namespace hci_restaurant.ViewModels
                 {
                     userRepository.DeleteUser(user.Username);
                     users.Remove(user);
-                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedUser") + " " + user.Username + "!");
+                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + user.Username + "!");
                 }
             }
         }

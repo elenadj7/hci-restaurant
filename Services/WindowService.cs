@@ -16,6 +16,12 @@ namespace hci_restaurant.Services
             window?.Close();
         }
 
+        public void OpenAddNewItemWindow()
+        {
+            AddNewItemWindow addNewItemWindow = new();
+            addNewItemWindow.ShowDialog();
+        }
+
         public void OpenAddNewUserWindow()
         {
             AddNewUserWindow addNewUserWindow = new();
