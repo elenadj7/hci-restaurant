@@ -2,15 +2,9 @@
 using hci_restaurant.Models.Repositories;
 using MySqlConnector;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace hci_restaurant.Repositories
 {
@@ -193,6 +187,69 @@ namespace hci_restaurant.Repositories
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public void AddUser(UserModel user, string password)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("AddUser", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = user.Username;
+                    command.Parameters.Add("@password_", MySqlDbType.String).Value = password;
+                    command.Parameters.Add("@name_", MySqlDbType.String).Value = user.Name;
+                    command.Parameters.Add("@surname_", MySqlDbType.String).Value = user.Surname;
+                    command.Parameters.Add("@salary_", MySqlDbType.Int32).Value = user.Salary;
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (MySqlException e)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public ObservableCollection<UserModel> GetAllByFilter(string filter)
+        {
+            ObservableCollection<UserModel> users = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FindUsersByFilter", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@filter_", MySqlDbType.String).Value = filter;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            UserModel user = new()
+                            {
+                                Username = reader.GetString(0),
+                                Name = reader.GetString(2),
+                                Surname = reader.GetString(3),
+                                Salary = reader.GetInt32(4),
+                                Role = reader.GetInt16(5)
+                            };
+
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+
+            return users;
         }
     }
 }

@@ -31,5 +31,8 @@
     <system:String x:Key="Confirm">Confirm</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="DeleteConfirm">Are you sure you want to delete </system:String>
-    <system:String x:Key="DeletedUser">You have successfully deleted the user</system:String>
+    <system:String x:Key="DeletedUser">You have successfully deleted user</system:String>
+    <system:String x:Key="Add">Add</system:String>
+    <system:String x:Key="UsernameExists">Username already exists!</system:String>
+    <system:String x:Key="AddedUser">User successfully added!</system:String>
 </ResourceDictionary>

@@ -37,7 +37,20 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="128">
                     <TextBlock Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{DynamicResource MyFont}" 
                                Foreground="{DynamicResource Text}" FontSize="12" TextTrimming="WordEllipsis" TextWrapping="Wrap" Margin="10"/>
-                    <Image Source="../Resources/Images/correct.PNG" Width="50" Height="42" Margin="10" VerticalAlignment="Bottom"/>
+                    
+                    <Image Width="50" Height="42" Margin="10" VerticalAlignment="Bottom">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="../Resources/Images/correct.PNG" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsCorrect}" Value="False">
+                                        <Setter Property="Source" Value="../Resources/Images/incorrect.PNG" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
                 </StackPanel>
 
 

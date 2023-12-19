@@ -12,7 +12,18 @@ namespace hci_restaurant.ViewModels
     public class AlertViewModel : ViewModelBase
     {
         private string message;
-        private IWindowService windowService = new WindowService();
+        private readonly IWindowService windowService = new WindowService();
+        private bool isCorrect = true;
+
+        public bool IsCorrect
+        {
+            get { return isCorrect; }
+            set
+            {
+                isCorrect = value;
+                OnPropertyChanged(nameof(IsCorrect));
+            }
+        }
 
         public string Message
         {
@@ -35,6 +46,13 @@ namespace hci_restaurant.ViewModels
         {
             CloseCommand = new ViewModelCommand(Close);
             Message = message;
+        }
+
+        public AlertViewModel(string message, bool isCorrect)
+        {
+            CloseCommand = new ViewModelCommand(Close);
+            Message = message;
+            IsCorrect = isCorrect;
         }
 
         private void Close(object parameter)

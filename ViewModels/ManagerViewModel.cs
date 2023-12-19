@@ -17,7 +17,7 @@ using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    class ManagerViewModel : ViewModelBase
+    public class ManagerViewModel : ViewModelBase
     {
         private UserModel user;
         private IUserRepository userRepository;

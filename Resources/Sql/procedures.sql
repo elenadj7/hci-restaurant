@@ -70,3 +70,25 @@ BEGIN
 	DELETE FROM `User` WHERE `username` = username_;
 END $$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddUser(IN username_ VARCHAR(255), IN password_ VARCHAR(255), 
+IN name_ VARCHAR(255), IN surname_ VARCHAR(255), IN salary_ INT)
+BEGIN
+	INSERT INTO `User`(`username`, `password`, `name`, `surname`, `salary`, `role`) 
+    VALUES(username_, password_, name_, surname_, salary_, 0);
+    CALL AddLanguageAndTheme(username_);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FindUsersByFilter(IN filter_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `User`
+    WHERE (`name` LIKE CONCAT('%', filter_, '%')
+    OR `surname` LIKE CONCAT('%', filter_, '%'))
+    AND `role` = 0;
+END $$
+DELIMITER ;

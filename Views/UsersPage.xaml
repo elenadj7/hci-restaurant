@@ -23,7 +23,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <Button x:Name="AddNewUser" Grid.Column="0" Content="{DynamicResource AddNewUser}" Foreground="{DynamicResource Text}" HorizontalAlignment="Left"
-                            FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="50,0,0,0" Height="40" Width="120">
+                            FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="50,0,0,0" Height="40" Width="120" Command="{Binding AddNewUserCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{DynamicResource Button}"/>
@@ -44,9 +44,14 @@
                         </Button.Template>
                     </Button>
                     <TextBox x:Name="UsernameBox" Grid.Column="1" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" 
-                             HorizontalAlignment="Right" Text="{DynamicResource Filter}" Width="300" Margin="0,0,50,0"
+                             HorizontalAlignment="Right" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="300" Margin="0,0,50,0"
                              Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" 
-                             Height="28" VerticalContentAlignment="Center"/>
+                             Height="28" VerticalContentAlignment="Center">
+
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding FilterCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
                 </Grid>
             </Border>
 
@@ -64,7 +69,8 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto" Height="auto">
                                         <Button x:Name="EditUser" Height="auto" Width="auto" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"
-                                                BorderThickness="0">
+                                                BorderThickness="0" Command="{Binding DataContext.EditUserCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                CommandParameter="{Binding}">
                                             <Image Source="../Resources/Images/edit.png"/>
                                         </Button>
                                         <Button x:Name="DeleteUser" Height="auto" Width="auto" Background="Transparent" HorizontalAlignment="Center" BorderBrush="Transparent"

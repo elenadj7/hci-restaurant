@@ -16,6 +16,12 @@ namespace hci_restaurant.Services
             window?.Close();
         }
 
+        public void OpenAddNewUserWindow()
+        {
+            AddNewUserWindow addNewUserWindow = new();
+            addNewUserWindow.ShowDialog();
+        }
+
         public void OpenAlertWindow(string message)
         {
             AlertWindow alert = new(message);
@@ -26,6 +32,12 @@ namespace hci_restaurant.Services
         {
             ConfirmWindow confirm = new(message);
             confirm.ShowDialog();
+        }
+
+        public void OpenIncorrectAlertWindow(string message)
+        {
+            AlertWindow alertWindow = new(message, false);
+            alertWindow.ShowDialog();
         }
 
         public void OpenLoginWindow()

@@ -30,5 +30,11 @@ namespace hci_restaurant.Views
             InitializeComponent();
             DataContext = new AlertViewModel(message);
         }
+
+        public AlertWindow(string message, bool correct)
+        {
+            InitializeComponent();
+            DataContext = new AlertViewModel(message, correct);
+        }
     }
 }

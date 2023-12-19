@@ -17,6 +17,7 @@ namespace hci_restaurant.Models.Repositories
         void UpdateTheme(string username, string theme);
         void UpdateLanguage(string username, string language);
         void DeleteUser(string username);
-        
+        void AddUser(UserModel user, string password);
+        ObservableCollection<UserModel> GetAllByFilter(string filter);
     }
 }

@@ -18,7 +18,7 @@ using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         private string username;
         private SecureString password;

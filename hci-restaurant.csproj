@@ -13,6 +13,7 @@
     <None Remove="Resources\Images\correct.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\incorrect.png" />
     <None Remove="Resources\Images\items.png" />
     <None Remove="Resources\Images\language.png" />
     <None Remove="Resources\Images\logo.png" />
@@ -38,6 +39,7 @@
     <Resource Include="Resources\Images\correct.png" />
     <Resource Include="Resources\Images\delete.png" />
     <Resource Include="Resources\Images\edit.png" />
+    <Resource Include="Resources\Images\incorrect.png" />
     <Resource Include="Resources\Images\items.png" />
     <Resource Include="Resources\Images\logo.png" />
     <Resource Include="Resources\Images\logout.png" />

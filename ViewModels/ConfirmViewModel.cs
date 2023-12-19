@@ -9,11 +9,11 @@ using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    class ConfirmViewModel : ViewModelBase
+    public class ConfirmViewModel : ViewModelBase
     {
         private string message;
         public static bool CanBe { get; set; }
-        IWindowService windowService = new WindowService();
+        private readonly IWindowService windowService = new WindowService();
 
         public string Message
         {

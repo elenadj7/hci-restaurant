@@ -10,7 +10,7 @@ using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    class SettingsViewModel : ViewModelBase
+    public class SettingsViewModel : ViewModelBase
     {
         private int selectedIntLanguage = LanguageService.GetIntFromLanguage();
         private int selectedIntTheme = ThemeService.GetIntFromTheme();
