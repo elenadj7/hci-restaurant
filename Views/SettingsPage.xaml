@@ -37,10 +37,10 @@
                     Width="120" Height="40" Command="{Binding SaveCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="{DynamicResource SaveButton}"/>
+                            <Setter Property="Background" Value="{DynamicResource Button}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource MouseOverSaveButton}"/>
+                                    <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
