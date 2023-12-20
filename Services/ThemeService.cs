@@ -15,7 +15,7 @@ namespace hci_restaurant.Services
             get { return currentTheme; }
             set
             {
-                if(currentTheme != value)
+                if(!currentTheme.Equals(value))
                 {
                     currentTheme = value;
                     SwitchTheme();
@@ -99,11 +99,11 @@ namespace hci_restaurant.Services
         {
             switch (i)
             {
-                case 1:
+                case 0:
                     return "Light";
-                case 2:
+                case 1:
                     return "Dark";
-                case 3:
+                case 2:
                     return "Professional";
             }
 
