@@ -156,6 +156,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `myrestaurant`.`Procurement` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_username` VARCHAR(45) NOT NULL,
+  `is_finished` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Procurement_User1_idx` (`user_username` ASC) VISIBLE,
   CONSTRAINT `fk_Procurement_User1`

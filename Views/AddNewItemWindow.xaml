@@ -74,7 +74,7 @@
                         <TextBlock Text="{DynamicResource Category}" Foreground="{DynamicResource BackgroundText}" FontSize="12" FontFamily="{DynamicResource MyFont}" 
                                    Margin="0,15,0,5"/>
                         <ComboBox x:Name="CategoryComboBox" FontFamily="{DynamicResource MyFont}" Height="28" Width="auto" VerticalContentAlignment="Center" 
-                                  ItemsSource="{Binding Categories}"/>
+                                  ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedCategory}"/>
                     </StackPanel>
                     
                     <StackPanel Orientation="Vertical" Grid.Row="4">
@@ -94,7 +94,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="0" Content="{DynamicResource Add}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
-                        Width="100" Height="40">
+                        Width="100" Height="40" Command="{Binding AddCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{DynamicResource Button}"/>
@@ -116,7 +116,7 @@
                     </Button>
 
                     <Button Grid.Column="1" Content="{DynamicResource Cancel}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
-                        Width="100" Height="40">
+                        Width="100" Height="40" Command="{Binding CancelCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{DynamicResource Button}"/>

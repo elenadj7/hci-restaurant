@@ -11,5 +11,7 @@ namespace hci_restaurant.Models.Repositories
     {
         ObservableCollection<ItemModel> GetAll();
         void DeleteItem(int id);
+        void AddItem(ItemModel item, int categoryId);
+        ObservableCollection<ItemModel> GetAllByCategory(int categoryId);
     }
 }

@@ -63,5 +63,66 @@ namespace hci_restaurant.Repositories
                 }
             }
         }
+
+        public void AddItem(ItemModel item, int categoryId)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("AddItem", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@name_", MySqlDbType.String).Value = item.Name;
+                    command.Parameters.Add("@price_", MySqlDbType.Decimal).Value = item.Price;
+                    command.Parameters.Add("@description_", MySqlDbType.String).Value = item.Description;
+                    command.Parameters.Add("@is_available_", MySqlDbType.Int16).Value = item.Available;
+                    command.Parameters.Add("@category_id_", MySqlDbType.Int32).Value = categoryId;
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public ObservableCollection<ItemModel> GetAllByCategory(int categoryId)
+        {
+            ObservableCollection<ItemModel> items = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("GetItemsByCategory", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@category_id", MySqlDbType.Int32).Value = categoryId;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ItemModel item = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader.GetString(1),
+                                Price = reader.GetDecimal(2),
+                                Description = "/",
+                                Available = reader.GetInt16(4),
+                                Category = reader.GetString(5)
+                            };
+
+                            if (!reader.IsDBNull(3))
+                            {
+                                item.Description = reader.GetString(3);
+                            }
+                            items.Add(item);
+                        }
+                    }
+                }
+            }
+
+            return items;
+        }
     }
 }

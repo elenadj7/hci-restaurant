@@ -13,5 +13,9 @@ namespace hci_restaurant.Models
         public string Surname {  get; set; }
         public int Salary { get; set; }
         public short Role {  get; set; }
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }

@@ -105,6 +105,14 @@ DELIMITER ;
 
 
 DELIMITER $$
+CREATE PROCEDURE AddItem(IN name_ VARCHAR(255), IN price_ DECIMAL, IN description_ VARCHAR(255), IN is_available_ TINYINT, IN category_id_ INT)
+BEGIN
+    INSERT INTO `Item`(name, price, description, is_available, category_id) values(name_, price_, description_, is_available_, category_id_);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
 CREATE PROCEDURE DeleteItem(IN id_ INT)
 BEGIN
     DELETE FROM `Item` WHERE id = id_; 
@@ -116,5 +124,16 @@ DELIMITER $$
 CREATE PROCEDURE GetAllCategories()
 BEGIN
     SELECT * FROM `Category`;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetItemsByCategory(IN category_id INT)
+BEGIN
+    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.is_available, `Category`.name AS category_name
+    FROM `Item`
+    INNER JOIN `Category` ON Item.category_id = Category.id
+    WHERE Item.category_id = category_id;
 END $$
 DELIMITER ;

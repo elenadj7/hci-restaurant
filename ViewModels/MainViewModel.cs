@@ -1,6 +1,4 @@
 ﻿using hci_restaurant.Models;
-using hci_restaurant.Models.Repositories;
-using hci_restaurant.Repositories;
 using hci_restaurant.Services;
 using hci_restaurant.Views;
 using System;
@@ -10,23 +8,22 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    public class ManagerViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         private UserModel user;
         private readonly IWindowService windowService = new WindowService();
 
-        private bool usersSelected = true;
-        private bool itemsSelected = false;
+        private bool ordersSelected = false;
+        private bool procurementsSelected = true;
         private bool settingsSelected = false;
 
-        private Page currentPage = new UsersPage();
+        private Page currentPage = new ProcurementsPage();
 
         public Page CurrentPage
         {
@@ -48,30 +45,30 @@ namespace hci_restaurant.ViewModels
             }
         }
 
-        public bool UsersSelected
+        public bool OrdersSelected
         {
-            get { return usersSelected; }
+            get { return ordersSelected; }
             set
             {
-                usersSelected = value;
-                OnPropertyChanged(nameof(UsersSelected));
-                if (usersSelected)
+                ordersSelected = value;
+                OnPropertyChanged(nameof(OrdersSelected));
+                if (ordersSelected)
                 {
-                    CurrentPage = new UsersPage();
+                    //TODO
                 }
             }
         }
 
-        public bool ItemsSelected
+        public bool ProcurementsSelected
         {
-            get { return itemsSelected; }
+            get { return procurementsSelected; }
             set
             {
-                itemsSelected = value;
-                OnPropertyChanged(nameof(ItemsSelected));
-                if (itemsSelected)
+                procurementsSelected = value;
+                OnPropertyChanged(nameof(ProcurementsSelected));
+                if (procurementsSelected)
                 {
-                    CurrentPage = new ItemsPage();
+                    CurrentPage = new ProcurementsPage();
                 }
             }
         }
@@ -91,7 +88,7 @@ namespace hci_restaurant.ViewModels
         }
 
 
-        public ManagerViewModel()
+        public MainViewModel()
         {
             LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
             LoadCurrentUser();
@@ -113,7 +110,7 @@ namespace hci_restaurant.ViewModels
                     Role = short.Parse(identity.FindFirst(ClaimTypes.Role)?.Value),
                 };
             }
-            
+
         }
 
         private void ExecuteLogoutCommand(object parameter)

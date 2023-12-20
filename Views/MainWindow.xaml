@@ -3,10 +3,96 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:hci_restaurant.Views"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:viewModel="clr-namespace:hci_restaurant.ViewModels"
+        Height="700" Width="1300" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+    <Window.Icon>
+        <ImageSource>../Resources/Images/logo.png</ImageSource>
+    </Window.Icon>
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Border Background="{DynamicResource Background}" BorderThickness="3">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{DynamicResource Gradient1}" Offset="0"/>
+                <GradientStop Color="{DynamicResource Gradient2}" Offset="0.75"/>
+                <GradientStop Color="{DynamicResource Gradient3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="10,0,0,10" Grid.Column="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
+                        <GradientStop Color="{DynamicResource MenuGradient1}" Offset="0"/>
+                        <GradientStop Color="{DynamicResource MenuGradient2}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="35" Margin="15,10,0,40">
+                        <Image Source="../Resources/Images/logo.png" Height="40"/>
+                        <TextBlock Text="{DynamicResource Restaurant}" Foreground="{DynamicResource Text}" FontSize="20" FontFamily="{DynamicResource MyFont}" FontWeight="Medium"
+                               VerticalAlignment="Center" Margin="15,10,0,0"/>
+                    </StackPanel>
+
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource ProcurementsRadioButton}" IsChecked="{Binding OrdersSelected}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/Images/orders.png" Width="30" Height="30" Margin="50,0,0,0"/>
+                            <TextBlock Text="{DynamicResource Orders}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource ProcurementsRadioButton}" IsChecked="{Binding ProcurementsSelected}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/Images/procurements.png" Width="30" Height="30" Margin="50,0,0,0"/>
+                            <TextBlock Text="{DynamicResource Procurements}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}" IsChecked="{Binding SettingsSelected}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/Images/settings.png" Width="30" Height="30" Margin="50,0,0,0"/>
+                            <TextBlock Text="{DynamicResource Settings}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource LogOutRadioButton}" Command="{Binding LogoutCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/Images/logout.png" Width="30" Height="30" Margin="50,0,0,0"/>
+                            <TextBlock Text="{DynamicResource Logout}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+            </Border>
+
+            <Border CornerRadius="0,10,10,0" Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <TextBlock Text="{Binding User.Username, StringFormat=@{0}}" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="{DynamicResource MyFont}" FontWeight="Medium"
+                               VerticalAlignment="Center" Margin="50,15,0,0"/>
+                    </Border>
+
+                    <Frame Grid.Row="1" x:Name="MainContent" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

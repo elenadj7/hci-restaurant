@@ -19,6 +19,43 @@ namespace hci_restaurant.ViewModels
         private ObservableCollection<ItemModel> items = new();
         private readonly IWindowService windowService = new WindowService();
         private readonly IItemRepository repository = new ItemRepository();
+        private readonly ICategoryRepository categoryRepository = new CategoryRepository();
+        private ObservableCollection<CategoryModel> categories = new();
+        private CategoryModel selectedCategory = new()
+        {
+            Id = -1,
+            Name = "All"
+        };
+
+
+        public CategoryModel SelectedCategory
+        {
+            get { return selectedCategory; }
+            set
+            {
+                selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
+
+                if(selectedCategory.Id == -1)
+                {
+                    Items = repository.GetAll();
+                }
+                else
+                {
+                    Items = repository.GetAllByCategory(selectedCategory.Id);
+                }
+            }
+        }
+
+        public ObservableCollection<CategoryModel> Categories
+        {
+            get { return categories; }
+            set
+            {
+                categories = value;
+                OnPropertyChanged(nameof(Categories));
+            }
+        }
 
         public ObservableCollection<ItemModel> Items
         {
@@ -40,6 +77,12 @@ namespace hci_restaurant.ViewModels
             DeleteItemCommand = new ViewModelCommand(ExecuteDeleting, CanExecuteDelete);
             EditItemCommand = new ViewModelCommand(ExecuteEditing, CanExecuteEdit);
             NewItemCommand = new ViewModelCommand(ExecuteAddingItem);
+            Categories.Add(selectedCategory);
+            ObservableCollection<CategoryModel> tmp = categoryRepository.GetAll();
+            foreach (CategoryModel t in tmp)
+            {
+                Categories.Add(t);
+            }
         }
         
         private void ExecuteAddingItem(object parameter)
