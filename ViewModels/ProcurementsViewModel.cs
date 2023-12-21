@@ -173,10 +173,14 @@ namespace hci_restaurant.ViewModels
 
         private void ExecuteDeletingProcurement(object parameter)
         {
-            procurementRepository.DeleteProcurement(selectedProcurement.Id);
-            windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
-            Procurements.Remove(selectedProcurement);
-            Items.Clear();
+            windowService.OpenConfirmWindow((string)Application.Current.TryFindResource("DeleteConfirm") + " " + SelectedProcurement);
+            if (ConfirmViewModel.CanBe)
+            {
+                procurementRepository.DeleteProcurement(selectedProcurement.Id);
+                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
+                Procurements.Remove(selectedProcurement);
+                Items.Clear();
+            }
         }
 
         private bool CanExecuteDeletingProcurement(object parameter)
@@ -202,19 +206,23 @@ namespace hci_restaurant.ViewModels
         {
             if (parameter is ProcurementHasItemModel item)
             {
-                procurementRepository.DeleteProcurementHasItem(item.ProcurementId, item.Item.Id);
-                Items.Remove(item);
-
-                if(Items.Count > 0)
+                windowService.OpenConfirmWindow((string)Application.Current.TryFindResource("DeleteConfirm") + " " + item.Item.Name);
+                if(ConfirmViewModel.CanBe)
                 {
-                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + item.Item.Name + "!");
-                    return;
+                    procurementRepository.DeleteProcurementHasItem(item.ProcurementId, item.Item.Id);
+                    Items.Remove(item);
+
+                    if (Items.Count > 0)
+                    {
+                        windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + item.Item.Name + "!");
+                        return;
+                    }
+
+                    procurementRepository.DeleteProcurement(item.ProcurementId);
+                    Procurements.Remove(selectedProcurement);
+                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
+                    IsVisible = false;
                 }
-                
-                procurementRepository.DeleteProcurement(item.ProcurementId);
-                Procurements.Remove(selectedProcurement);
-                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
-                IsVisible = false;
             }
         }
 
