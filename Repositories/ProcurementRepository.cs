@@ -33,12 +33,6 @@ namespace hci_restaurant.Repositories
             }
         }
 
-        public void AddItemsToProcurement(string username, ItemModel item, decimal purchasePrice, int quantity)
-        {
-            int procurementId = AddProcurement(username);
-            AddProcurementHasItem(procurementId, item, purchasePrice, quantity);
-        }
-
         public void AddProcurementHasItem(int procurementId, ItemModel item, decimal purchasePrice, int quantity)
         {
             using (MySqlConnection connection = RepositoryBase.GetConnection())
@@ -155,6 +149,39 @@ namespace hci_restaurant.Repositories
                     command.CommandType = CommandType.StoredProcedure;
 
                     command.Parameters.Add("@id_", MySqlDbType.Int32).Value = id;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateProcurement(int id)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UpdateProcurement", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@id_", MySqlDbType.Int32).Value = id;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteProcurementHasItem(int procurementId, int itemId)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("DeleteProcurementHasItem", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@procurement_id_", MySqlDbType.Int32).Value = procurementId;
+                    command.Parameters.Add("@item_id_", MySqlDbType.Int32).Value = itemId;
                     command.ExecuteNonQuery();
                 }
             }

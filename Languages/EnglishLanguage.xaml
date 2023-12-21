@@ -52,4 +52,8 @@
     <system:String x:Key="NotSelectedItem">You have not selected Item!</system:String>
     <system:String x:Key="AddedProcurement">Procurement successfully added!</system:String>
     <system:String x:Key="DeletedProcurement">Procurement successfully deleted!</system:String>
+    <system:String x:Key="CompletedProcurement">Procurement completed!</system:String>
+    <system:String x:Key="Update">Update</system:String>
+    <system:String x:Key="UpdatedUser">User successfully updated!</system:String>
+    <system:String x:Key="SalaryAlert">Salary is number!</system:String>
 </ResourceDictionary>

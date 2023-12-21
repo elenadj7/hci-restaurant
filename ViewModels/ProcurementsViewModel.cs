@@ -28,6 +28,28 @@ namespace hci_restaurant.ViewModels
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly IWindowService windowService = new WindowService();
         private string username;
+        private bool isFinished;
+        private bool isVisible = false;
+
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        public bool IsFinished
+        {
+            get { return isFinished; }
+            set
+            {
+                isFinished = value;
+                OnPropertyChanged(nameof(IsFinished));
+            }
+        }
 
         public ObservableCollection<UserModel> Users
         {
@@ -57,6 +79,12 @@ namespace hci_restaurant.ViewModels
                 selectedUser = value;
                 OnPropertyChanged(nameof(SelectedUser));
                 Procurements = procurementRepository.GetAllByUser(selectedUser.Username);
+                SelectedProcurement = null;
+                if(Items != null)
+                {
+                    Items.Clear();
+                }
+                IsVisible = false;
             }
         }
 
@@ -66,8 +94,20 @@ namespace hci_restaurant.ViewModels
             set
             {
                 selectedProcurement = value;
-                OnPropertyChanged(nameof(SelectedProcurement));
-                Items = procurementRepository.GetItemDataByUsernameAndProcurementId(SelectedUser.Username, SelectedProcurement.Id);
+                if(selectedProcurement != null)
+                {
+                    OnPropertyChanged(nameof(SelectedProcurement));
+                    Items = procurementRepository.GetItemDataByUsernameAndProcurementId(SelectedUser.Username, SelectedProcurement.Id);
+                    IsVisible = true;
+                    if (selectedProcurement.IsFinished == 0)
+                    {
+                        IsFinished = false;
+                    }
+                    else
+                    {
+                        IsFinished = true;
+                    }
+                }
             }
         }
 
@@ -85,6 +125,7 @@ namespace hci_restaurant.ViewModels
         public ICommand DeleteCommand { get; set; }
         public ICommand AddProcurementCommand {  get; set; }
         public ICommand DeleteProcurementCommand { get; set; }
+        public ICommand UpdateProcurementCommand { get; set; }
 
         public ProcurementsViewModel()
         {
@@ -92,6 +133,7 @@ namespace hci_restaurant.ViewModels
             DeleteCommand = new ViewModelCommand(ExecuteDeleting, CanExecuteDelete);
             AddProcurementCommand = new ViewModelCommand(ExecuteAddingNewProcurement);
             DeleteProcurementCommand = new ViewModelCommand(ExecuteDeletingProcurement, CanExecuteDeletingProcurement);
+            UpdateProcurementCommand = new ViewModelCommand(ExecuteUpdatingProcurement, CanExecuteUpdatingProcurement);
             Users = userRepository.GetAll();
             SelectedUser = Users.ElementAt(0);
 
@@ -103,11 +145,38 @@ namespace hci_restaurant.ViewModels
             }
         }
 
+        private void ExecuteUpdatingProcurement(object parameter)
+        {
+            procurementRepository.UpdateProcurement(SelectedProcurement.Id);
+            SelectedProcurement.IsFinished = 1;
+            IsFinished = true;
+            windowService.OpenAlertWindow((string)Application.Current.TryFindResource("CompletedProcurement"));
+        }
+
+        private bool CanExecuteUpdatingProcurement(object parameter)
+        {
+            if (SelectedProcurement == null || SelectedUser == null)
+            {
+                return false;
+            }
+            else if (!SelectedUser.Username.Equals(username))
+            {
+                return false;
+            }
+            else if (SelectedProcurement.IsFinished == 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void ExecuteDeletingProcurement(object parameter)
         {
             procurementRepository.DeleteProcurement(selectedProcurement.Id);
             windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
             Procurements.Remove(selectedProcurement);
+            Items.Clear();
         }
 
         private bool CanExecuteDeletingProcurement(object parameter)
@@ -133,13 +202,25 @@ namespace hci_restaurant.ViewModels
         {
             if (parameter is ProcurementHasItemModel item)
             {
-                 //todo
+                procurementRepository.DeleteProcurementHasItem(item.ProcurementId, item.Item.Id);
+                Items.Remove(item);
+
+                if(Items.Count > 0)
+                {
+                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + item.Item.Name + "!");
+                    return;
+                }
+                
+                procurementRepository.DeleteProcurement(item.ProcurementId);
+                Procurements.Remove(selectedProcurement);
+                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
+                IsVisible = false;
             }
         }
 
         private bool CanExecuteDelete(object parameter)
         {
-            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username);
+            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username) && !IsFinished;
         }
 
         private void ExecuteEditing(object parameter)
@@ -152,7 +233,7 @@ namespace hci_restaurant.ViewModels
 
         private bool CanExecuteEdit(object parameter)
         {
-            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username);
+            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username) && !IsFinished;
         }
     }
 }

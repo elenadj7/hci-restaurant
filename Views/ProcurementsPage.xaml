@@ -16,6 +16,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0">
@@ -70,7 +71,7 @@
                     </Button>
 
                     <Button x:Name="CompleteItem" Grid.Column="0" Content="{DynamicResource MarkAsComplete}" Foreground="{DynamicResource Text}" HorizontalAlignment="Left"
-                            FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="310,0,0,0" Height="40" Width="120">
+                            FontSize="12" FontFamily="{DynamicResource MyFont}" Margin="310,0,0,0" Height="40" Width="120" Command="{Binding UpdateProcurementCommand}">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{DynamicResource Button}"/>
@@ -179,6 +180,23 @@
                     </DataGrid.RowStyle>
                 </DataGrid>
             </Border>
+
+            <Image Grid.Row="2" Width="40" Height="40" Margin="0,0,50,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Source" Value="../Resources/Images/finished.PNG" />
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFinished}" Value="False">
+                                <Setter Property="Source" Value="../Resources/Images/pending.PNG" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
         </Grid>
     </Border>
 </Page>

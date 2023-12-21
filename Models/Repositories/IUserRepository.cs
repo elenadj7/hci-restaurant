@@ -19,5 +19,6 @@ namespace hci_restaurant.Models.Repositories
         void DeleteUser(string username);
         void AddUser(UserModel user, string password);
         ObservableCollection<UserModel> GetAllByFilter(string filter);
+        void UpdateUser(string username, string name, string surname, int salary);
     }
 }

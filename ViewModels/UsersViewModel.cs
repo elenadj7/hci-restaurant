@@ -85,7 +85,7 @@ namespace hci_restaurant.ViewModels
         {
             if (parameter is UserModel user)
             {
-                //TODO
+                windowService.OpenUpdateUserWindow(user);
             }
         }
 

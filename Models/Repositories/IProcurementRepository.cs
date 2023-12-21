@@ -12,8 +12,9 @@ namespace hci_restaurant.Models.Repositories
         ObservableCollection<ProcurementModel> GetAllByUser(string username);
         int AddProcurement(String username);
         void AddProcurementHasItem(int procurementId, ItemModel item, decimal purchasePrice, int quantity);
-        void AddItemsToProcurement(string username, ItemModel item, decimal purchasePrice, int quantity);
         ObservableCollection<ProcurementHasItemModel> GetItemDataByUsernameAndProcurementId(string username, int procurementId);
         void DeleteProcurement(int id);
+        void UpdateProcurement(int id);
+        void DeleteProcurementHasItem(int procurementId, int itemId);
     }
 }

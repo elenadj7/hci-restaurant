@@ -160,10 +160,11 @@ namespace hci_restaurant.ViewModels
             if (currentUser != null && (currentUser?.Identity is ClaimsIdentity identity))
             {
                 string username = identity.FindFirst(ClaimTypes.Name)?.Value;
+                int pId = procurementRepository.AddProcurement(username);
 
                 foreach (ProcurementHasItemModel p in ProcurementHasItems)
                 {
-                    procurementRepository.AddItemsToProcurement(username, p.Item, p.PurchasePrice, p.Quantity);
+                    procurementRepository.AddProcurementHasItem(pId, p.Item, p.PurchasePrice, p.Quantity);
                 }
 
                 windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedProcurement"));

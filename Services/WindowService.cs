@@ -1,4 +1,5 @@
-﻿using hci_restaurant.Views;
+﻿using hci_restaurant.Models;
+using hci_restaurant.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,12 @@ namespace hci_restaurant.Services
         {
             ManagerWindow managerWindow = new();
             managerWindow.Show();
+        }
+
+        public void OpenUpdateUserWindow(UserModel user)
+        {
+            UpdateUserWindow updateUserWindow = new(user);
+            updateUserWindow.ShowDialog();
         }
     }
 }

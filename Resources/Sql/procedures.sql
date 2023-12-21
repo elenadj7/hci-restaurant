@@ -84,6 +84,14 @@ DELIMITER ;
 
 
 DELIMITER $$
+CREATE PROCEDURE UpdateUser(IN username_ VARCHAR(255), IN name_ VARCHAR(255), IN surname_ VARCHAR(255), IN salary_ INT)
+BEGIN
+	UPDATE `User` SET name = name_, surname = surname_, salary = salary_ WHERE username = username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
 CREATE PROCEDURE FindUsersByFilter(IN filter_ VARCHAR(255))
 BEGIN
     SELECT * FROM `User`
@@ -210,5 +218,13 @@ DELIMITER $$
 CREATE PROCEDURE DeleteProcurement(IN id_ INT)
 BEGIN
     DELETE FROM `Procurement` WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteProcurementHasItem(IN procurement_id_ INT, IN item_id_ INT)
+BEGIN
+    DELETE FROM `Procurement_has_Item` WHERE item_id = item_id_ AND procurement_id = procurement_id_;
 END $$
 DELIMITER ;

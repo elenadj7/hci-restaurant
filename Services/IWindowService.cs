@@ -1,4 +1,5 @@
-﻿using System;
+﻿using hci_restaurant.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace hci_restaurant.Services
         void OpenAddNewUserWindow();
         void OpenAddNewItemWindow();
         void OpenAddNewProcurementWindow();
+        void OpenUpdateUserWindow(UserModel user);
     }
 }

@@ -251,5 +251,24 @@ namespace hci_restaurant.Repositories
 
             return users;
         }
+
+        public void UpdateUser(string username, string name, string surname, int salary)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UpdateUser", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@name_", MySqlDbType.String).Value = name;
+                    command.Parameters.Add("@surname_", MySqlDbType.String).Value = surname;
+                    command.Parameters.Add("@salary_", MySqlDbType.Int32).Value = salary;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
