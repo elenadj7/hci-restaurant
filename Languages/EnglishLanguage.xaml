@@ -46,4 +46,10 @@
     <system:String x:Key="Quantity">Quantity</system:String>
     <system:String x:Key="PurchasePrice">Purchase Price</system:String>
     <system:String x:Key="Orders">Orders</system:String>
+    <system:String x:Key="DeleteProcurement">Delete Procurement</system:String>
+    <system:String x:Key="MarkAsComplete">Mark As Complete</system:String>
+    <system:String x:Key="AlertNewItem">Price and Quantity are numbers!</system:String>
+    <system:String x:Key="NotSelectedItem">You have not selected Item!</system:String>
+    <system:String x:Key="AddedProcurement">Procurement successfully added!</system:String>
+    <system:String x:Key="DeletedProcurement">Procurement successfully deleted!</system:String>
 </ResourceDictionary>

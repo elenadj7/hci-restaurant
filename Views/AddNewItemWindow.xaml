@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:hci_restaurant.ViewModels"
         mc:Ignorable="d"
-           Height="500" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Height="500" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Icon>
         <ImageSource>../Resources/Images/logo.png</ImageSource>
@@ -78,11 +78,12 @@
                     </StackPanel>
                     
                     <StackPanel Orientation="Vertical" Grid.Row="4">
-                        <TextBlock Text="{DynamicResource Available}" Foreground="{DynamicResource BackgroundText}" FontSize="12" FontFamily="{DynamicResource MyFont}" 
+                        <TextBlock Text="{DynamicResource Quantity}" Foreground="{DynamicResource BackgroundText}" FontSize="12" FontFamily="{DynamicResource MyFont}" 
                                Margin="0,15,0,5"/>
-                        <CheckBox x:Name="AvailableCheckBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="20" Width="20" 
-                                  Background="{DynamicResource BackgroundText}" 
-                                  Foreground="{DynamicResource Background}" IsChecked="{Binding IsAvailable}" IsEnabled="True"/>
+                        <TextBox x:Name="QuantityTextBox" Grid.Row="0" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" 
+                                 Background="Transparent" BorderBrush="{DynamicResource BackgroundText}" BorderThickness="0,0,0,2" Height="28" 
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
 
                 </Grid>

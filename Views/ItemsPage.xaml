@@ -61,7 +61,7 @@
                         <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="*"/>
                         <DataGridTextColumn Header="{DynamicResource Price}" Binding="{Binding Price}" Width="*"/>
                         <DataGridTextColumn Header="{DynamicResource Descr}" Binding="{Binding Description}" Width="*"/>
-                        <DataGridTextColumn Header="{DynamicResource Available}" Binding="{Binding Available}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Quantity}" Binding="{Binding Quantity}" Width="*"/>
                         <DataGridTextColumn Header="{DynamicResource Category}" Binding="{Binding Category}" Width="*"/>
                         <DataGridTemplateColumn Header="#" Width="100">
                             <DataGridTemplateColumn.CellTemplate>

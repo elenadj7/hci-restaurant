@@ -22,6 +22,12 @@ namespace hci_restaurant.Services
             addNewItemWindow.ShowDialog();
         }
 
+        public void OpenAddNewProcurementWindow()
+        {
+            AddNewProcurementWindow addNewProcurementWindow = new();
+            addNewProcurementWindow.ShowDialog();
+        }
+
         public void OpenAddNewUserWindow()
         {
             AddNewUserWindow addNewUserWindow = new();

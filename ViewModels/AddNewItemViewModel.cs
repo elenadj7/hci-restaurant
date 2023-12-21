@@ -20,7 +20,7 @@ namespace hci_restaurant.ViewModels
         private string name;
         private string description;
         private string price;
-        private bool available;
+        private string quantity;
         private ObservableCollection<CategoryModel> categories;
         private CategoryModel selectedCategory;
         private readonly ICategoryRepository categoryRepository = new CategoryRepository();
@@ -77,13 +77,13 @@ namespace hci_restaurant.ViewModels
             }
         }
 
-        public bool IsAvailable
+        public string Quantity
         {
-            get { return available; }
+            get { return quantity; }
             set
             {
-                available = value;
-                OnPropertyChanged(nameof(IsAvailable));
+                quantity = value;
+                OnPropertyChanged(nameof(Quantity));
             }
         }
 
@@ -105,19 +105,21 @@ namespace hci_restaurant.ViewModels
 
         private void ExecuteAddNewItem(object parameter)
         {
+
+            if(!decimal.TryParse(Price, out _) || !int.TryParse(Quantity, out _))
+            {
+                windowService.OpenIncorrectAlertWindow((string)Application.Current.TryFindResource("AlertNewItem"));
+                return;
+            }
+
             ItemModel item = new()
             {
                 Name = Name,
                 Price = decimal.Parse(Price),
                 Description = Description,
-                Available = 0,
+                Quantity = int.Parse(Quantity),
                 Category = SelectedCategory.Name
             };
-
-            if(IsAvailable)
-            {
-                item.Available = 1;
-            }
 
             itemRepository.AddItem(item, SelectedCategory.Id);
             windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedItem"));

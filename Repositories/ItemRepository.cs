@@ -31,7 +31,7 @@ namespace hci_restaurant.Repositories
                                 Name = reader.GetString(1),
                                 Price = reader.GetDecimal(2),
                                 Description = "/",
-                                Available = reader.GetInt16(4),
+                                Quantity = reader.GetInt32(4),
                                 Category = reader.GetString(5)
                             };
 
@@ -77,7 +77,7 @@ namespace hci_restaurant.Repositories
                     command.Parameters.Add("@name_", MySqlDbType.String).Value = item.Name;
                     command.Parameters.Add("@price_", MySqlDbType.Decimal).Value = item.Price;
                     command.Parameters.Add("@description_", MySqlDbType.String).Value = item.Description;
-                    command.Parameters.Add("@is_available_", MySqlDbType.Int16).Value = item.Available;
+                    command.Parameters.Add("@quantity_", MySqlDbType.Int16).Value = item.Quantity;
                     command.Parameters.Add("@category_id_", MySqlDbType.Int32).Value = categoryId;
 
                     command.ExecuteNonQuery();
@@ -108,7 +108,7 @@ namespace hci_restaurant.Repositories
                                 Name = reader.GetString(1),
                                 Price = reader.GetDecimal(2),
                                 Description = "/",
-                                Available = reader.GetInt16(4),
+                                Quantity = reader.GetInt32(4),
                                 Category = reader.GetString(5)
                             };
 

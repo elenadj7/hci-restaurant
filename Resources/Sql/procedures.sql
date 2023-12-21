@@ -97,7 +97,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE GetAllItems()
 BEGIN
-    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.is_available, `Category`.name AS category_name
+    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.quantity, `Category`.name AS category_name
     FROM `Item`
     INNER JOIN `Category` ON Item.category_id = Category.id;
 END $$
@@ -105,9 +105,9 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE AddItem(IN name_ VARCHAR(255), IN price_ DECIMAL, IN description_ VARCHAR(255), IN is_available_ TINYINT, IN category_id_ INT)
+CREATE PROCEDURE AddItem(IN name_ VARCHAR(255), IN price_ DECIMAL, IN description_ VARCHAR(255), IN quantity_ INT, IN category_id_ INT)
 BEGIN
-    INSERT INTO `Item`(name, price, description, is_available, category_id) values(name_, price_, description_, is_available_, category_id_);
+    INSERT INTO `Item`(name, price, description, quantity, category_id) values(name_, price_, description_, quantity_, category_id_);
 END $$
 DELIMITER ;
 
@@ -131,9 +131,84 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE GetItemsByCategory(IN category_id INT)
 BEGIN
-    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.is_available, `Category`.name AS category_name
+    SELECT `Item`.id, `Item`.name, `Item`.price, `Item`.description, `Item`.quantity, `Category`.name AS category_name
     FROM `Item`
     INNER JOIN `Category` ON Item.category_id = Category.id
     WHERE Item.category_id = category_id;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetAllProcurements(IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Procurement` WHERE user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddProcurement(IN user_username_ VARCHAR(255), OUT id_ INT)
+BEGIN
+    INSERT INTO `Procurement` (user_username, is_finished, ordered, arrived)
+    VALUES (user_username_, 0, CURDATE(), NULL);
+    SELECT LAST_INSERT_ID() INTO id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE UpdateProcurement(IN id_ iNT)
+BEGIN
+    UPDATE `Procurement`
+    SET arrived = CURDATE(), is_finished = 1
+    WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddProcurementHasItem(IN procurement_id_ INT, IN item_id_ INT, IN quantity_ INT, IN purchase_price_ DECIMAL)
+BEGIN
+    INSERT INTO `Procurement_has_Item`(procurement_id, item_id, quantity, purchase_price)
+    VALUES(procurement_id_, item_id_, quantity_, purchase_price_);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetItemDataByUsernameAndProcurementId(
+    IN username_ VARCHAR(50),
+    IN procurement_id_ INT
+)
+BEGIN
+    SELECT
+		i.id AS itemId,
+        p.id AS procurementId,
+        i.name,
+        i.price,
+        i.description,
+        c.name AS categoryName,
+        i.quantity,
+        phi.purchase_price AS purchaseprice
+    FROM
+        `Item` i
+    INNER JOIN
+        `Procurement_has_Item` phi ON i.id = phi.item_id
+    INNER JOIN
+        `Procurement` p ON phi.procurement_id = p.id
+    INNER JOIN
+        `Category` c ON i.category_id = c.id
+    WHERE
+        p.user_username = username_
+        AND p.id = procurement_id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteProcurement(IN id_ INT)
+BEGIN
+    DELETE FROM `Procurement` WHERE id = id_;
 END $$
 DELIMITER ;

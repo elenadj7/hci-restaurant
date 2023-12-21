@@ -17,5 +17,6 @@ namespace hci_restaurant.Services
         void OpenConfirmWindow(string message);
         void OpenAddNewUserWindow();
         void OpenAddNewItemWindow();
+        void OpenAddNewProcurementWindow();
     }
 }

@@ -11,9 +11,11 @@ namespace hci_restaurant.Models
         public int Id { get; set; }
         public string UserUsername { get; set; }
         public short IsFinished { get; set; }
+        public DateTime Ordered {  get; set; }
+        public DateTime Arrived { get; set; }
         public override string ToString()
         {
-            return Id.ToString();
+            return Id.ToString() + "-" + Ordered;
         }
     }
 }

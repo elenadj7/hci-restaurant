@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Item` (
   `name` VARCHAR(50) NOT NULL,
   `price` DECIMAL(5,2) NOT NULL,
   `description` VARCHAR(200) NULL,
-  `is_available` TINYINT NOT NULL,
+  `quantity` INT NOT NULL,
   `category_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Item_Category1_idx` (`category_id` ASC) VISIBLE,
@@ -157,6 +157,8 @@ CREATE TABLE IF NOT EXISTS `myrestaurant`.`Procurement` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_username` VARCHAR(45) NOT NULL,
   `is_finished` TINYINT NOT NULL,
+  `ordered` DATE NOT NULL,
+  `arrived` DATE,
   PRIMARY KEY (`id`),
   INDEX `fk_Procurement_User1_idx` (`user_username` ASC) VISIBLE,
   CONSTRAINT `fk_Procurement_User1`
