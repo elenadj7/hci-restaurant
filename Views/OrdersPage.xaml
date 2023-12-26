@@ -49,7 +49,7 @@
 
                     <ComboBox x:Name="Users" Grid.Column="0" Margin="190,0,0,0" Height="40" Width="120" HorizontalAlignment="Left" 
                           FontFamily="{DynamicResource MyFont}" FontSize="12" HorizontalContentAlignment="Center" 
-                          VerticalContentAlignment="Center" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"/>
+                          VerticalContentAlignment="Center" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Style="{DynamicResource ComboBox}"/>
 
                     <TextBox x:Name="UsernameBox" Grid.Column="1" FontSize="13" FontFamily="{DynamicResource MyFont}" Foreground="{DynamicResource BackgroundText}" 
                          HorizontalAlignment="Right" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="300" Margin="0,0,50,0"

@@ -5,7 +5,7 @@
     <system:String x:Key="Description">Delicious Moments, Served Daily!</system:String>
     <system:String x:Key="Username">Username</system:String>
     <system:String x:Key="Password">Password</system:String>
-    <system:String x:Key="LogIn">LOG IN</system:String>
+    <system:String x:Key="LogIn">Log in</system:String>
     <system:String x:Key="Users">Users</system:String>
     <system:String x:Key="Settings">Settings</system:String>
     <system:String x:Key="Logout">Log out</system:String>

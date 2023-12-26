@@ -9,7 +9,7 @@ namespace hci_restaurant.Services
 {
     public class ThemeService
     {
-        private static string currentTheme = "Dark";
+        private static string currentTheme = "Light";
         public static string CurrentTheme
         {
             get { return currentTheme; }

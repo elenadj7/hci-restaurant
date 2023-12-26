@@ -20,7 +20,7 @@ CALL AddUser('noahClark', 'noahClark', 'Noah', 'Clark', FLOOR(RAND()*(4000-900+1
 CALL AddUser('oliverLewis', 'oliverLewis', 'Oliver', 'Lewis', FLOOR(RAND()*(4000-900+1))+900);
 CALL AddUser('elena', 'elena', 'Elena', 'Djurdjevic', FLOOR(RAND()*(4000-900+1))+900);
 insert into User(username, password, name, surname, salary, role) values("admin", "admin", "Admin", "Admin", 8888, 1);
-insert into Settings(user_username, theme, language) values("admin", "Dark", "English");
+insert into Settings(user_username, theme, language) values("admin", "Light", "English");
 
 
 insert into Category(id, name) values(1, "Article");

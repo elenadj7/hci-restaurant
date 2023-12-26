@@ -15,11 +15,8 @@
         <viewModel:AlertViewModel/>
     </Window.DataContext>
 
-    <Border>
-        <Border.Background>
-            <ImageBrush ImageSource="../Resources/Images/background-photo.jpg"/>
-        </Border.Background>
-        <Border Background="{DynamicResource Background}" BorderThickness="3" Opacity="0.95">
+    
+        <Border Background="{DynamicResource Background}" BorderThickness="3">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="{DynamicResource Gradient1}" Offset="0"/>
@@ -77,5 +74,5 @@
                 </Button>
             </Grid>
         </Border>
-    </Border>
+    
 </Window>

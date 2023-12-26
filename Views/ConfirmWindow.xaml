@@ -15,80 +15,77 @@
         <viewModel:ConfirmViewModel/>
     </Window.DataContext>
 
-    <Border>
-        <Border.Background>
-            <ImageBrush ImageSource="../Resources/Images/background-photo.jpg"/>
-        </Border.Background>
-        <Border Background="{DynamicResource Background}" BorderThickness="3" Opacity="0.95">
-            <Border.BorderBrush>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="{DynamicResource Gradient1}" Offset="0"/>
-                    <GradientStop Color="{DynamicResource Gradient2}" Offset="0.75"/>
-                    <GradientStop Color="{DynamicResource Gradient3}" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
+    <Border Background="{DynamicResource Background}" BorderThickness="3">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{DynamicResource Gradient1}" Offset="0"/>
+                <GradientStop Color="{DynamicResource Gradient2}" Offset="0.75"/>
+                <GradientStop Color="{DynamicResource Gradient3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
 
-                <TextBlock Grid.Row="0" Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{DynamicResource MyFont}" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{DynamicResource MyFont}" 
                            Foreground="{DynamicResource Text}" FontSize="12" TextTrimming="WordEllipsis" TextWrapping="Wrap"/>
 
 
-                    <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Content="{DynamicResource Confirm}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
+                <Button Grid.Column="0" Content="{DynamicResource Confirm}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
                             Width="70" Height="30" Command="{Binding ConfirmCommand}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="{DynamicResource Button}"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{DynamicResource Button}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
-                    <Button Grid.Column="1" Content="{DynamicResource Cancel}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
+                <Button Grid.Column="1" Content="{DynamicResource Cancel}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
                             Width="70" Height="30" Command="{Binding CancelCommand}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="{DynamicResource Button}"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{DynamicResource Button}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
-        </Border>
+        </Grid>
     </Border>
+    
 </Window>

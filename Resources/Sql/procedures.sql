@@ -59,7 +59,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE AddLanguageAndTheme(IN username_ VARCHAR(255))
 BEGIN
-	INSERT INTO `Settings` (`user_username`, `theme`, `language`) VALUES (username_, "Dark", "English");
+	INSERT INTO `Settings` (`user_username`, `theme`, `language`) VALUES (username_, "Light", "English");
 END $$
 DELIMITER ;
 
@@ -159,7 +159,7 @@ DELIMITER $$
 CREATE PROCEDURE AddProcurement(IN user_username_ VARCHAR(255), OUT id_ INT)
 BEGIN
     INSERT INTO `Procurement` (user_username, ordered)
-    VALUES (user_username_, CURDATE());
+    VALUES (user_username_, NOW());
     SELECT LAST_INSERT_ID() INTO id_;
 END $$
 DELIMITER ;
@@ -278,7 +278,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE AddOrder(IN table_id_ INT, IN user_username_ VARCHAR(255), OUT id_ INT)
 BEGIN
-    INSERT INTO `Order`(created, table_id, user_username) VALUES(CURDATE(), table_id_, user_username_);
+    INSERT INTO `Order`(created, table_id, user_username) VALUES(NOW(), table_id_, user_username_);
     SELECT LAST_INSERT_ID() INTO id_;
 END $$
 DELIMITER ;

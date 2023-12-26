@@ -126,7 +126,7 @@ namespace hci_restaurant.ViewModels
                 Thread.CurrentPrincipal = null;
 
                 LanguageService.CurrentLanguage = "English";
-                ThemeService.CurrentTheme = "Dark";
+                ThemeService.CurrentTheme = "Light";
 
                 windowService.OpenLoginWindow();
                 windowService.Close(this);

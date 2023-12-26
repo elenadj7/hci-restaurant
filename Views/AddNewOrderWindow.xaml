@@ -44,14 +44,14 @@
                     <TextBlock Text="{DynamicResource Items}" Foreground="{DynamicResource BackgroundText}" FontSize="12" FontFamily="{DynamicResource MyFont}" 
                                Margin="0,15,0,5"/>
                     <ComboBox x:Name="ItemsComboBox" FontFamily="{DynamicResource MyFont}" Height="28" Width="auto" VerticalContentAlignment="Center" 
-                              ItemsSource="{Binding Items}"  SelectedItem="{Binding SelectedItem}"/>
+                              ItemsSource="{Binding Items}"  SelectedItem="{Binding SelectedItem}" Style="{DynamicResource ComboBox}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Grid.Row="1">
                     <TextBlock Text="{DynamicResource Table}" Foreground="{DynamicResource BackgroundText}" FontSize="12" FontFamily="{DynamicResource MyFont}" 
                                Margin="0,15,0,5"/>
                     <ComboBox x:Name="TablesComboBox" FontFamily="{DynamicResource MyFont}" Height="28" Width="auto" VerticalContentAlignment="Center" 
-                              ItemsSource="{Binding Tables}"  SelectedItem="{Binding SelectedTable}"/>
+                              ItemsSource="{Binding Tables}"  SelectedItem="{Binding SelectedTable}" Style="{DynamicResource ComboBox}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Grid.Row="2">
