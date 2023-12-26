@@ -19,37 +19,14 @@ namespace hci_restaurant.ViewModels
 {
     public class ProcurementsViewModel : ViewModelBase
     {
-        private ObservableCollection<ProcurementHasItemModel> items;
         private ObservableCollection<UserModel> users;
         private ObservableCollection<ProcurementModel> procurements;
         private UserModel selectedUser;
-        private ProcurementModel selectedProcurement;
+        private string username;
+        private string filter;
         private readonly IProcurementRepository procurementRepository = new ProcurementRepository();
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly IWindowService windowService = new WindowService();
-        private string username;
-        private bool isFinished;
-        private bool isVisible = false;
-
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set
-            {
-                isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
-            }
-        }
-
-        public bool IsFinished
-        {
-            get { return isFinished; }
-            set
-            {
-                isFinished = value;
-                OnPropertyChanged(nameof(IsFinished));
-            }
-        }
 
         public ObservableCollection<UserModel> Users
         {
@@ -79,122 +56,44 @@ namespace hci_restaurant.ViewModels
                 selectedUser = value;
                 OnPropertyChanged(nameof(SelectedUser));
                 Procurements = procurementRepository.GetAllByUser(selectedUser.Username);
-                SelectedProcurement = null;
-                if(Items != null)
-                {
-                    Items.Clear();
-                }
-                IsVisible = false;
             }
         }
 
-        public ProcurementModel SelectedProcurement
+        public string Filter
         {
-            get => selectedProcurement;
+            get { return filter; }
             set
             {
-                selectedProcurement = value;
-                if(selectedProcurement != null)
-                {
-                    OnPropertyChanged(nameof(SelectedProcurement));
-                    Items = procurementRepository.GetItemDataByUsernameAndProcurementId(SelectedUser.Username, SelectedProcurement.Id);
-                    IsVisible = true;
-                    if (selectedProcurement.IsFinished == 0)
-                    {
-                        IsFinished = false;
-                    }
-                    else
-                    {
-                        IsFinished = true;
-                    }
-                }
+                filter = value;
+                OnPropertyChanged(nameof(Filter));
             }
         }
 
-        public ObservableCollection<ProcurementHasItemModel> Items
-        {
-            get { return items; }
-            set
-            {
-                items = value;
-                OnPropertyChanged(nameof(Items));
-            }
-        }
-
-        public ICommand EditCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
         public ICommand AddProcurementCommand {  get; set; }
-        public ICommand DeleteProcurementCommand { get; set; }
-        public ICommand UpdateProcurementCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand ShowDetailsCommand { get; set; }
+        public ICommand FilterCommand { get; set; }
 
         public ProcurementsViewModel()
         {
-            EditCommand = new ViewModelCommand(ExecuteEditing, CanExecuteEdit);
-            DeleteCommand = new ViewModelCommand(ExecuteDeleting, CanExecuteDelete);
             AddProcurementCommand = new ViewModelCommand(ExecuteAddingNewProcurement);
-            DeleteProcurementCommand = new ViewModelCommand(ExecuteDeletingProcurement, CanExecuteDeletingProcurement);
-            UpdateProcurementCommand = new ViewModelCommand(ExecuteUpdatingProcurement, CanExecuteUpdatingProcurement);
+            DeleteCommand = new ViewModelCommand(ExecuteDelete, CanExecuteDelete);
+            ShowDetailsCommand = new ViewModelCommand(ExecuteShowDetails, CanExecuteShowDetails);
+            FilterCommand = new ViewModelCommand(ExecuteFilter);
             Users = userRepository.GetAll();
-            SelectedUser = Users.ElementAt(0);
 
+            LoadCurrentUser();
+        }
 
+        private void LoadCurrentUser()
+        {
             ClaimsPrincipal? currentUser = Thread.CurrentPrincipal as ClaimsPrincipal;
             if (currentUser != null && (currentUser?.Identity is ClaimsIdentity identity))
             {
                 username = identity.FindFirst(ClaimTypes.Name)?.Value;
             }
-        }
 
-        private void ExecuteUpdatingProcurement(object parameter)
-        {
-            procurementRepository.UpdateProcurement(SelectedProcurement.Id);
-            SelectedProcurement.IsFinished = 1;
-            IsFinished = true;
-            windowService.OpenAlertWindow((string)Application.Current.TryFindResource("CompletedProcurement"));
-        }
-
-        private bool CanExecuteUpdatingProcurement(object parameter)
-        {
-            if (SelectedProcurement == null || SelectedUser == null)
-            {
-                return false;
-            }
-            else if (!SelectedUser.Username.Equals(username))
-            {
-                return false;
-            }
-            else if (SelectedProcurement.IsFinished == 1)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private void ExecuteDeletingProcurement(object parameter)
-        {
-            windowService.OpenConfirmWindow((string)Application.Current.TryFindResource("DeleteConfirm") + " " + SelectedProcurement);
-            if (ConfirmViewModel.CanBe)
-            {
-                procurementRepository.DeleteProcurement(selectedProcurement.Id);
-                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
-                Procurements.Remove(selectedProcurement);
-                Items.Clear();
-            }
-        }
-
-        private bool CanExecuteDeletingProcurement(object parameter)
-        {
-            if(SelectedProcurement == null || SelectedUser == null)
-            {
-                return false;
-            }
-            else if (!SelectedUser.Username.Equals(username))
-            {
-                return false;
-            }
-
-            return true;
+            SelectedUser = Users.Where(user => user.Username == username).FirstOrDefault();
         }
 
         private void ExecuteAddingNewProcurement(object parameter)
@@ -202,46 +101,41 @@ namespace hci_restaurant.ViewModels
             windowService.OpenAddNewProcurementWindow();
         }
 
-        private void ExecuteDeleting(object parameter)
+        private void ExecuteDelete(object parameter)
         {
-            if (parameter is ProcurementHasItemModel item)
+            if (parameter is ProcurementModel procurementModel)
             {
-                windowService.OpenConfirmWindow((string)Application.Current.TryFindResource("DeleteConfirm") + " " + item.Item.Name);
-                if(ConfirmViewModel.CanBe)
+                windowService.OpenConfirmWindow((string)Application.Current.TryFindResource("DeleteConfirm") + " " + procurementModel.Id + "?");
+                if (ConfirmViewModel.CanBe)
                 {
-                    procurementRepository.DeleteProcurementHasItem(item.ProcurementId, item.Item.Id);
-                    Items.Remove(item);
-
-                    if (Items.Count > 0)
-                    {
-                        windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + item.Item.Name + "!");
-                        return;
-                    }
-
-                    procurementRepository.DeleteProcurement(item.ProcurementId);
-                    Procurements.Remove(selectedProcurement);
-                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("DeletedProcurement"));
-                    IsVisible = false;
+                    procurementRepository.DeleteProcurement(procurementModel.Id);
+                    Procurements.Remove(procurementModel);
+                    windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + procurementModel.Id + "!");
                 }
             }
         }
 
-        private bool CanExecuteDelete(object parameter)
+        private void ExecuteShowDetails(object parameter)
         {
-            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username) && !IsFinished;
-        }
-
-        private void ExecuteEditing(object parameter)
-        {
-            if (parameter is ProcurementHasItemModel item)
+            if(parameter is ProcurementModel procurementModel)
             {
-                //TODO
+                windowService.OpenProcurementDetailsWindow(SelectedUser.Username, procurementModel.Id);
             }
         }
 
-        private bool CanExecuteEdit(object parameter)
+        private bool CanExecuteShowDetails(object parameter)
         {
-            return parameter is ProcurementHasItemModel && username.Equals(SelectedUser.Username) && !IsFinished;
+            return parameter is ProcurementModel procurementModel;
+        }
+
+        private bool CanExecuteDelete(object parameter)
+        {
+            return parameter is ProcurementModel procurementModel && SelectedUser.Username == username;
+        }
+
+        private void ExecuteFilter(object parameter)
+        {
+            //TODO
         }
     }
 }

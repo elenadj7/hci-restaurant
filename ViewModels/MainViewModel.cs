@@ -19,11 +19,11 @@ namespace hci_restaurant.ViewModels
         private UserModel user;
         private readonly IWindowService windowService = new WindowService();
 
-        private bool ordersSelected = false;
-        private bool procurementsSelected = true;
+        private bool ordersSelected = true;
+        private bool procurementsSelected = false;
         private bool settingsSelected = false;
 
-        private Page currentPage = new ProcurementsPage();
+        private Page currentPage = new OrdersPage();
 
         public Page CurrentPage
         {
@@ -54,7 +54,7 @@ namespace hci_restaurant.ViewModels
                 OnPropertyChanged(nameof(OrdersSelected));
                 if (ordersSelected)
                 {
-                    //TODO
+                    CurrentPage = new OrdersPage();
                 }
             }
         }

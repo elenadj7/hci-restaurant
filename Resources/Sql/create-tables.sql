@@ -29,22 +29,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `myrestaurant`.`Status`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `myrestaurant`.`Status` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `myrestaurant`.`Table`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `myrestaurant`.`Table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `seats_number` INT NOT NULL,
-  `is_busy` TINYINT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -55,19 +44,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `myrestaurant`.`Order` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `created` DATETIME NOT NULL,
-  `note` VARCHAR(200) NULL,
-  `status_id` INT NOT NULL,
   `table_id` INT NOT NULL,
   `user_username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Order_Status1_idx` (`status_id` ASC) VISIBLE,
   INDEX `fk_Order_Table1_idx` (`table_id` ASC) VISIBLE,
   INDEX `fk_Order_User1_idx` (`user_username` ASC) VISIBLE,
-  CONSTRAINT `fk_Order_Status1`
-    FOREIGN KEY (`status_id`)
-    REFERENCES `myrestaurant`.`Status` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Order_Table1`
     FOREIGN KEY (`table_id`)
     REFERENCES `myrestaurant`.`Table` (`id`)
@@ -156,9 +137,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `myrestaurant`.`Procurement` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_username` VARCHAR(45) NOT NULL,
-  `is_finished` TINYINT NOT NULL,
   `ordered` DATE NOT NULL,
-  `arrived` DATE,
   PRIMARY KEY (`id`),
   INDEX `fk_Procurement_User1_idx` (`user_username` ASC) VISIBLE,
   CONSTRAINT `fk_Procurement_User1`

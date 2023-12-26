@@ -18,6 +18,7 @@ CALL AddUser('ethanMartin', 'ethanMartin', 'Ethan', 'Martin', FLOOR(RAND()*(4000
 CALL AddUser('ameliaLee', 'ameliaLee', 'Amelia', 'Lee', FLOOR(RAND()*(4000-900+1))+900);
 CALL AddUser('noahClark', 'noahClark', 'Noah', 'Clark', FLOOR(RAND()*(4000-900+1))+900);
 CALL AddUser('oliverLewis', 'oliverLewis', 'Oliver', 'Lewis', FLOOR(RAND()*(4000-900+1))+900);
+CALL AddUser('elena', 'elena', 'Elena', 'Djurdjevic', FLOOR(RAND()*(4000-900+1))+900);
 insert into User(username, password, name, surname, salary, role) values("admin", "admin", "Admin", "Admin", 8888, 1);
 insert into Settings(user_username, theme, language) values("admin", "Dark", "English");
 
@@ -52,3 +53,5 @@ CALL AddItem('Coffee', 3.50, 'Freshly brewed coffee', ROUND(RAND() * 100), 3);
 CALL AddItem('Red Wine', 18.00, 'Full-bodied red wine', ROUND(RAND() * 100), 3);
 CALL AddItem('Mojito', 7.50, 'Refreshing minty cocktail', ROUND(RAND() * 100), 3);
 CALL AddItem('Iced Latte', 4.00, 'Chilled espresso with milk', ROUND(RAND() * 100), 3);
+
+CALL AddRandomTables();

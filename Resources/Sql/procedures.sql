@@ -158,19 +158,9 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE AddProcurement(IN user_username_ VARCHAR(255), OUT id_ INT)
 BEGIN
-    INSERT INTO `Procurement` (user_username, is_finished, ordered, arrived)
-    VALUES (user_username_, 0, CURDATE(), NULL);
+    INSERT INTO `Procurement` (user_username, ordered)
+    VALUES (user_username_, CURDATE());
     SELECT LAST_INSERT_ID() INTO id_;
-END $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE UpdateProcurement(IN id_ iNT)
-BEGIN
-    UPDATE `Procurement`
-    SET arrived = CURDATE(), is_finished = 1
-    WHERE id = id_;
 END $$
 DELIMITER ;
 
@@ -226,5 +216,115 @@ DELIMITER $$
 CREATE PROCEDURE DeleteProcurementHasItem(IN procurement_id_ INT, IN item_id_ INT)
 BEGIN
     DELETE FROM `Procurement_has_Item` WHERE item_id = item_id_ AND procurement_id = procurement_id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddTable(IN seats_number_ INT)
+BEGIN
+    INSERT INTO `Table`(seats_number) VALUES (seats_number_);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteTable(IN id_ INT)
+BEGIN
+    DELETE FROM `Table` WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetAllTables()
+BEGIN
+    SELECT * FROM `Table`;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddRandomTables()
+BEGIN
+    DECLARE counter INT DEFAULT 1;
+    DECLARE randomSeats INT;
+
+    WHILE counter <= 25 DO
+        SET randomSeats = FLOOR(RAND() * (10 - 2 + 1)) + 2;
+        CALL AddTable(randomSeats);
+        SET counter = counter + 1;
+    END WHILE;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetOrdersByUsername(IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Order` WHERE user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteOrder(IN id_ INT)
+BEGIN
+    DELETE FROM `Order` WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddOrder(IN table_id_ INT, IN user_username_ VARCHAR(255), OUT id_ INT)
+BEGIN
+    INSERT INTO `Order`(created, table_id, user_username) VALUES(CURDATE(), table_id_, user_username_);
+    SELECT LAST_INSERT_ID() INTO id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetItemDataByUsernameAndOrderId(
+    IN username_ VARCHAR(50),
+    IN order_id_ INT
+)
+BEGIN
+    SELECT
+		i.id AS itemId,
+        o.id AS orderId,
+        i.name,
+        i.price,
+        i.description,
+        c.name AS categoryName,
+        ohi.quantity
+    FROM
+        `Item` i
+    INNER JOIN
+        `Order_has_Item` ohi ON i.id = ohi.item_id
+    INNER JOIN
+        `Order` o ON ohi.order_id = o.id
+    INNER JOIN
+        `Category` c ON i.category_id = c.id
+    WHERE
+        o.user_username = username_
+        AND o.id = order_id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE DeleteOrderHasItem(IN order_id_ INT, IN item_id_ INT)
+BEGIN
+    DELETE FROM `Order_has_Item` WHERE item_id = item_id_ AND order_id = order_id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE AddOrderHasItem(IN order_id_ INT, IN item_id_ INT, IN quantity_ INT)
+BEGIN
+    INSERT INTO `Order_has_Item`(order_id, item_id, quantity)
+    VALUES(order_id_, item_id_, quantity_);
 END $$
 DELIMITER ;

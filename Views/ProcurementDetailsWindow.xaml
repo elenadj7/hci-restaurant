@@ -1,0 +1,113 @@
+﻿<Window x:Class="hci_restaurant.Views.ProcurementDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:hci_restaurant.ViewModels"
+        mc:Ignorable="d"
+        Height="400" Width="820" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Icon>
+        <ImageSource>../Resources/Images/logo.png</ImageSource>
+    </Window.Icon>
+    
+    <Window.DataContext>
+        <viewModel:ProcurementDetailsViewModel/>
+    </Window.DataContext>
+
+    <Border Background="{DynamicResource Background}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock  Grid.Row="0" Text="{Binding Total}" Foreground="{DynamicResource Text}" FontSize="14" FontFamily="{DynamicResource MyFont}" FontWeight="Medium"
+                       VerticalAlignment="Center" Margin="25,0,0,0"/>
+
+            <Border Grid.Row="1">
+                <DataGrid x:Name="UsersDataGrid" Background="Transparent" HorizontalAlignment="Stretch" Margin="25,0,25,0" Height="auto" Width="auto" 
+                          BorderThickness="1" ItemsSource="{Binding Items}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectedIndex="-1"
+                          HeadersVisibility="Column" SelectionUnit="FullRow" BorderBrush="Transparent">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Item.Name}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Price}" Binding="{Binding Item.Price}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Descr}" Binding="{Binding Item.Description}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Category}" Binding="{Binding Item.Category}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource Quantity}" Binding="{Binding Quantity}" Width="*"/>
+                        <DataGridTextColumn Header="{DynamicResource PurchasePrice}" Binding="{Binding PurchasePrice}" Width="*"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{DynamicResource TableBackground}"/>
+                            <Setter Property="FontFamily" Value="{DynamicResource MyFont}"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Foreground" Value="{DynamicResource BackgroundText}"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="IsHitTestVisible" Value="True"/>
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </Border>
+
+            <Button Grid.Row="2" Content="{DynamicResource Close}" Foreground="{DynamicResource Text}" FontSize="12" FontFamily="{DynamicResource MyFont}"
+                    Width="70" Height="30" Command="{Binding CloseCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{DynamicResource Button}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MouseOverButton}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

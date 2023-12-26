@@ -23,6 +23,12 @@ namespace hci_restaurant.Services
             addNewItemWindow.ShowDialog();
         }
 
+        public void OpenAddNewOrderWindow()
+        {
+            AddNewOrderWindow addNewOrderWindow = new();
+            addNewOrderWindow.ShowDialog();
+        }
+
         public void OpenAddNewProcurementWindow()
         {
             AddNewProcurementWindow addNewProcurementWindow = new();
@@ -69,6 +75,18 @@ namespace hci_restaurant.Services
         {
             ManagerWindow managerWindow = new();
             managerWindow.Show();
+        }
+
+        public void OpenOrderDetailsWindow(string username, int orderId)
+        {
+            OrderDetailsWindow orderDetailsWindow = new(username, orderId);
+            orderDetailsWindow.ShowDialog();
+        }
+
+        public void OpenProcurementDetailsWindow(string username, int procurementId)
+        {
+            ProcurementDetailsWindow procurementDetailsWindow = new(username, procurementId);
+            procurementDetailsWindow.ShowDialog();
         }
 
         public void OpenUpdateUserWindow(UserModel user)

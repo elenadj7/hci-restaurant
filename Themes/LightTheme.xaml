@@ -2,22 +2,22 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="Background" Color="#F0F5F9"/>
     <SolidColorBrush x:Key="BackgroundBorder" Color="#B8DBF4"/>
-    <Color x:Key="Gradient1">#89CFF0</Color>
-    <Color x:Key="Gradient2">#5DACE6</Color>
-    <Color x:Key="Gradient3">#3A8BCD</Color>
+    <Color x:Key="Gradient1">#B9E4FF</Color>
+    <Color x:Key="Gradient2">#8FC4FF</Color>
+    <Color x:Key="Gradient3">#6DAEFF</Color>
     <SolidColorBrush x:Key="Text" Color="Black"/>
     <SolidColorBrush x:Key="BackgroundText" Color="Black"/>
     <FontFamily x:Key="MyFont">Book Antiqua</FontFamily>
-    <SolidColorBrush x:Key="Button" Color="#5DACE6"/>
-    <SolidColorBrush x:Key="MouseOverButton" Color="#89CFF0"/>
-    <Color x:Key="MenuGradient1">#89CFF0</Color>
-    <Color x:Key="MenuGradient2">#3A8BCD</Color>
+    <SolidColorBrush x:Key="Button" Color="#8AD5FF"/>
+    <SolidColorBrush x:Key="MouseOverButton" Color="#5FC7FF"/>
+    <Color x:Key="MenuGradient1">#E6F7FF</Color>
+    <Color x:Key="MenuGradient2">#B3E3FF</Color>
     <SolidColorBrush x:Key="UserRadioButton" Color="DarkGray"/>
     <SolidColorBrush x:Key="SettingsRadioButton" Color="#9ED2BE"/>
     <SolidColorBrush x:Key="ProcurementsRadioButton" Color="#E9B384"/>
     <SolidColorBrush x:Key="LogOutRadioButton" Color="#CE5A67"/>
     <SolidColorBrush x:Key="ErrorText" Color="red"/>
-    <SolidColorBrush x:Key="TableBackground" Color="#87C4FF"/>
+    <SolidColorBrush x:Key="TableBackground" Color="#B3E3FF"/>
 
     <Style x:Key="MenuButton" TargetType="RadioButton">
         <Setter Property="Height" Value="50"/>

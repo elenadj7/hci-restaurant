@@ -12,29 +12,51 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Linq;
 using WPF_LoginForm.ViewModels;
 
 namespace hci_restaurant.ViewModels
 {
-    public class AddNewProcurementViewModel : ViewModelBase
+    public class AddNewOrderViewModel : ViewModelBase
     {
         private ObservableCollection<ItemModel> items = new();
-        private ObservableCollection<ProcurementHasItemModel> procurementHasItems = new();
+        private ObservableCollection<TableModel> tables = new();
+        private ObservableCollection<OrderHasItemModel> orderHasItems = new();
         private ItemModel selectedItem;
+        private TableModel selectedTable;
         private string quantity;
-        private string purchasePrice;
         private readonly IItemRepository itemRepository = new ItemRepository();
         private readonly IWindowService windowService = new WindowService();
-        private readonly IProcurementRepository procurementRepository = new ProcurementRepository();
+        private readonly IOrderRepository orderRepository = new OrderRepository();
+        private readonly ITableRepository tableRepository = new TableRepository();
 
-        public ObservableCollection<ProcurementHasItemModel> ProcurementHasItems
+
+        public TableModel SelectedTable
         {
-            get { return procurementHasItems; }
+            get { return selectedTable; }
             set
             {
-                procurementHasItems = value;
-                OnPropertyChanged(nameof(ProcurementHasItems));
+                selectedTable = value;
+                OnPropertyChanged(nameof(SelectedTable));
+            }
+        }
+
+        public ObservableCollection<TableModel> Tables
+        {
+            get { return tables; }
+            set
+            {
+                tables = value;
+                OnPropertyChanged(nameof(Tables));
+            }
+        }
+
+        public ObservableCollection<OrderHasItemModel> OrderHasItems
+        {
+            get { return orderHasItems; }
+            set
+            {
+                orderHasItems = value;
+                OnPropertyChanged(nameof(OrderHasItems));
             }
         }
 
@@ -68,33 +90,24 @@ namespace hci_restaurant.ViewModels
             }
         }
 
-        public string PurchasePrice
-        {
-            get { return purchasePrice; }
-            set
-            {
-                purchasePrice = value;
-                OnPropertyChanged(nameof(PurchasePrice));
-            }
-        }
-
         public ICommand DeleteItemCommand { get; set; }
         public ICommand AddItemCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
-        public AddNewProcurementViewModel()
+        public AddNewOrderViewModel()
         {
             DeleteItemCommand = new ViewModelCommand(ExecuteDeletingItem, CanExecuteDeletingItem);
             CancelCommand = new ViewModelCommand(ExecuteCanceling);
             AddItemCommand = new ViewModelCommand(ExecuteAddingItem, CanExecuteAddingItem);
             AddCommand = new ViewModelCommand(ExecuteAdding, CanExecuteAdding);
+
             LoadItems();
         }
 
         private void LoadItems()
         {
-            ObservableCollection<ItemModel> i1 = itemRepository.GetAllByCategory(1);
+            ObservableCollection<ItemModel> i1 = itemRepository.GetAllByCategory(2);
             ObservableCollection<ItemModel> i2 = itemRepository.GetAllByCategory(3);
 
             foreach (ItemModel i in i1)
@@ -106,24 +119,25 @@ namespace hci_restaurant.ViewModels
             {
                 Items.Add(i);
             }
+
+            Tables = tableRepository.GetAll();
         }
 
         private void ExecuteAddingItem(object parameter)
         {
-            if(!int.TryParse(Quantity, out _) || !decimal.TryParse(PurchasePrice, out _))
+            if (!int.TryParse(Quantity, out _))
             {
-                windowService.OpenIncorrectAlertWindow((string)Application.Current.TryFindResource("AlertNewItem"));
+                windowService.OpenIncorrectAlertWindow((string)Application.Current.TryFindResource("AlertNewOrder"));
                 return;
             }
 
-            ProcurementHasItemModel procurementHasItemModel = new()
+            OrderHasItemModel orderHasItemModel = new()
             {
                 Item = SelectedItem,
                 Quantity = int.Parse(Quantity),
-                PurchasePrice = decimal.Parse(PurchasePrice),
             };
 
-            ProcurementHasItems.Add(procurementHasItemModel);
+            OrderHasItems.Add(orderHasItemModel);
         }
 
         private bool CanExecuteAddingItem(object parameter)
@@ -143,15 +157,15 @@ namespace hci_restaurant.ViewModels
 
         private void ExecuteDeletingItem(object parameter)
         {
-            if(parameter is ProcurementHasItemModel p)
+            if (parameter is OrderHasItemModel o)
             {
-                ProcurementHasItems.Remove(p);
+                OrderHasItems.Remove(o);
             }
         }
 
         private bool CanExecuteDeletingItem(object parameter)
         {
-            return parameter is ProcurementHasItemModel;
+            return parameter is OrderHasItemModel;
         }
 
         private void ExecuteAdding(object parameter)
@@ -160,20 +174,20 @@ namespace hci_restaurant.ViewModels
             if (currentUser != null && (currentUser?.Identity is ClaimsIdentity identity))
             {
                 string username = identity.FindFirst(ClaimTypes.Name)?.Value;
-                int pId = procurementRepository.AddProcurement(username);
+                int oId = orderRepository.AddOrder(SelectedTable.Id, username);
 
-                foreach (ProcurementHasItemModel p in ProcurementHasItems)
+                foreach (OrderHasItemModel o in OrderHasItems)
                 {
-                    procurementRepository.AddProcurementHasItem(pId, p.Item, p.PurchasePrice, p.Quantity);
+                    orderRepository.AddOrderHasItem(oId, o.Item, o.Quantity);
                 }
 
-                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedProcurement"));
+                windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedOrder"));
             }
         }
 
         private bool CanExecuteAdding(object parameter)
         {
-            if(ProcurementHasItems.Count == 0)
+            if (OrderHasItems.Count == 0)
             {
                 return false;
             }

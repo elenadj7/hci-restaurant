@@ -56,4 +56,14 @@
     <system:String x:Key="Update">Update</system:String>
     <system:String x:Key="UpdatedUser">User successfully updated!</system:String>
     <system:String x:Key="SalaryAlert">Salary is number!</system:String>
+    <system:String x:Key="Close">Close</system:String>
+    <system:String x:Key="Id">Id</system:String>
+    <system:String x:Key="Created">Created</system:String>
+    <system:String x:Key="Total">Total</system:String>
+    <system:String x:Key="AddOrder">Add Order</system:String>
+    <system:String x:Key="Note">Note</system:String>
+    <system:String x:Key="Table">Table</system:String>
+    <system:String x:Key="AlertNewOrder">Quantity is number!</system:String>
+    <system:String x:Key="AddedOrder">Order successfully added!</system:String>
+    <system:String x:Key="seats">seats</system:String>
 </ResourceDictionary>

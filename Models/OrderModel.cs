@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace hci_restaurant.Models
 {
-    public class ProcurementModel
+    public class OrderModel
     {
         public int Id { get; set; }
+        public DateTime Created { get; set; }
+        public int TableId { get; set; }
         public string UserUsername { get; set; }
-        public DateTime Ordered {  get; set; }
-        public override string ToString()
-        {
-            return Id.ToString() + "-" + Ordered;
-        }
     }
 }
