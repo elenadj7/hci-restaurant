@@ -2,8 +2,6 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
-using hci_restaurant.Views;
-using MySqlConnector;
 using Prism.Events;
 using System;
 using System.Collections.ObjectModel;

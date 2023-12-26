@@ -1,13 +1,9 @@
 ﻿using hci_restaurant.Models;
 using hci_restaurant.Services;
 using hci_restaurant.Views;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_LoginForm.ViewModels;

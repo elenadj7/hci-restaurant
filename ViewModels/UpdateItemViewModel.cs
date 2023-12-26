@@ -3,14 +3,9 @@ using hci_restaurant.Models;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WPF_LoginForm.ViewModels;
 using Prism.Events;
 using System.Windows.Input;
-using System.Xml.Linq;
 using System.Windows;
 
 namespace hci_restaurant.ViewModels

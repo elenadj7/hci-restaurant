@@ -1,10 +1,6 @@
 ﻿using hci_restaurant.Models;
 using hci_restaurant.Views;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace hci_restaurant.Services

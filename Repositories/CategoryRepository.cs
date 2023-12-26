@@ -1,13 +1,8 @@
 ﻿using hci_restaurant.Models;
 using hci_restaurant.Models.Repositories;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace hci_restaurant.Repositories
 {
