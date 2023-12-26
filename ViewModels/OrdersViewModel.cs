@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace hci_restaurant.ViewModels
         private readonly IWindowService windowService = new WindowService();
         private readonly IOrderRepository orderRepository = new OrderRepository();
         private readonly IUserRepository userRepository = new UserRepository();
+        private readonly PubSubEvent<OrderModel> addedOrder = App.EventAggregator.GetEvent<PubSubEvent<OrderModel>>();
 
         public ObservableCollection<UserModel> Users
         {
@@ -81,6 +83,12 @@ namespace hci_restaurant.ViewModels
             Users = userRepository.GetAll();
 
             LoadCurrentUser();
+            addedOrder.Subscribe(OnAddedOrder);
+        }
+
+        private void OnAddedOrder(OrderModel order)
+        {
+            Orders.Add(order);
         }
 
         private void LoadCurrentUser()
@@ -121,6 +129,7 @@ namespace hci_restaurant.ViewModels
                 {
                     orderRepository.DeleteOrder(orderModel.Id);
                     Orders.Remove(orderModel);
+                    ConfirmViewModel.CanBe = false;
                     windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + orderModel.Id + "!");
                 }
             }

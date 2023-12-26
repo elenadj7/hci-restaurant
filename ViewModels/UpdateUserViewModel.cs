@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace hci_restaurant.ViewModels
         private string salary;
         private readonly IWindowService windowService = new WindowService();
         private readonly IUserRepository userRepository = new UserRepository();
+        private readonly EventAggregator eventAggregator = (EventAggregator)App.EventAggregator;
 
         public string Name
         {
@@ -85,6 +87,7 @@ namespace hci_restaurant.ViewModels
             }
 
             userRepository.UpdateUser(user.Username, name, surname, int.Parse(salary));
+            eventAggregator.GetEvent<PubSubEvent<Tuple<string, int>>>().Publish(Tuple.Create(user.Username, int.Parse(salary)));
             windowService.OpenAlertWindow((string)Application.Current.TryFindResource("UpdatedUser"));
         }
     }

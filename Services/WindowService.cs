@@ -89,6 +89,12 @@ namespace hci_restaurant.Services
             procurementDetailsWindow.ShowDialog();
         }
 
+        public void OpenUpdateItemWindow(ItemModel item)
+        {
+            UpdateItemWindow updateItemWindow = new(item);
+            updateItemWindow.ShowDialog();
+        }
+
         public void OpenUpdateUserWindow(UserModel user)
         {
             UpdateUserWindow updateUserWindow = new(user);

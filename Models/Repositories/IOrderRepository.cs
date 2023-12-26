@@ -16,5 +16,6 @@ namespace hci_restaurant.Models.Repositories
         ObservableCollection<OrderHasItemModel> GetItemDataByUsernameAndOrderId(string username, int orderId);
         void AddOrderHasItem(int orderId, ItemModel item, int quantity);
         void DeleteOrderHasItem(int orderId, int itemId);
+        OrderModel GetOrderById(int orderId);
     }
 }

@@ -164,5 +164,33 @@ namespace hci_restaurant.Repositories
                 }
             }
         }
+
+        public ProcurementModel GetProcurementById(int procurementId)
+        {
+            ProcurementModel p = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("GetProcurementById", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@id_", MySqlDbType.Int32).Value = procurementId;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            p.Id = reader.GetInt32(0);
+                            p.UserUsername = reader.GetString(1);
+                            p.Ordered = reader.GetDateTime(2);
+                        }
+                    }
+                }
+            }
+
+            return p;
+        }
     }
 }

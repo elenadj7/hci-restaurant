@@ -3,6 +3,7 @@ using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
 using MySqlConnector;
+using Prism.Events;
 using System.Windows;
 using System.Windows.Input;
 using WPF_LoginForm.ViewModels;
@@ -19,6 +20,7 @@ namespace hci_restaurant.ViewModels
         private int salary;
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly IWindowService windowService = new WindowService();
+        private readonly EventAggregator eventAggregator = (EventAggregator)App.EventAggregator;
 
         public string Username
         {
@@ -107,6 +109,7 @@ namespace hci_restaurant.ViewModels
             try
             {
                 userRepository.AddUser(user, password);
+                eventAggregator.GetEvent<PubSubEvent<UserModel>>().Publish(user);
                 windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedUser"));
             }
             catch(MySqlException)

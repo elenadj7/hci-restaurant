@@ -3,6 +3,7 @@ using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
 using Microsoft.Windows.Themes;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace hci_restaurant.ViewModels
         private readonly IProcurementRepository procurementRepository = new ProcurementRepository();
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly IWindowService windowService = new WindowService();
+        private readonly PubSubEvent<ProcurementModel> addedProcurement = App.EventAggregator.GetEvent<PubSubEvent<ProcurementModel>>();
 
         public ObservableCollection<UserModel> Users
         {
@@ -83,6 +85,12 @@ namespace hci_restaurant.ViewModels
             Users = userRepository.GetAll();
 
             LoadCurrentUser();
+            addedProcurement.Subscribe(OnAddedProcurement);
+        }
+
+        private void OnAddedProcurement(ProcurementModel procurement)
+        {
+            Procurements.Add(procurement);
         }
 
         private void LoadCurrentUser()
@@ -110,6 +118,7 @@ namespace hci_restaurant.ViewModels
                 {
                     procurementRepository.DeleteProcurement(procurementModel.Id);
                     Procurements.Remove(procurementModel);
+                    ConfirmViewModel.CanBe = false;
                     windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + procurementModel.Id + "!");
                 }
             }

@@ -328,3 +328,27 @@ BEGIN
     VALUES(order_id_, item_id_, quantity_);
 END $$
 DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetOrderById(IN id_ INT)
+BEGIN
+    SELECT * FROM `Order` WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetProcurementById(IN id_ INT)
+BEGIN
+    SELECT * FROM `Procurement` WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE UpdateItem(IN id_ INT, IN price_ DECIMAL, IN quantity_ INT)
+BEGIN
+    SELECT * FROM `Procurement` WHERE id = id_;
+END $$
+DELIMITER ;

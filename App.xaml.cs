@@ -1,4 +1,5 @@
 ﻿using hci_restaurant.Views;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,6 +18,8 @@ namespace hci_restaurant
     /// </summary>
     public partial class App : Application
     {
+        public static readonly IEventAggregator EventAggregator = new EventAggregator();
+
         protected void ApplicationStart(object sender, EventArgs e)
         {
             LoginWindow loginWindow = new();

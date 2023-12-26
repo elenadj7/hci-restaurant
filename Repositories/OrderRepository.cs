@@ -186,5 +186,34 @@ namespace hci_restaurant.Repositories
                 }
             }
         }
+
+        public OrderModel GetOrderById(int orderId)
+        {
+            OrderModel o = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("GetOrderById", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@id_", MySqlDbType.Int32).Value = orderId;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            o.Id = reader.GetInt32(0);
+                            o.Created = reader.GetDateTime(1);
+                            o.TableId = reader.GetInt32(2);
+                            o.UserUsername = reader.GetString(3);
+                        }
+                    }
+                }
+            }
+
+            return o;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,7 @@ namespace hci_restaurant.ViewModels
         private readonly IWindowService windowService = new WindowService();
         private readonly IOrderRepository orderRepository = new OrderRepository();
         private readonly ITableRepository tableRepository = new TableRepository();
+        private readonly EventAggregator eventAggregator = (EventAggregator)App.EventAggregator;
 
 
         public TableModel SelectedTable
@@ -142,7 +144,7 @@ namespace hci_restaurant.ViewModels
 
         private bool CanExecuteAddingItem(object parameter)
         {
-            if (SelectedItem == null)
+            if (SelectedItem == null || OrderHasItems.Any(i => i.Item.Id == SelectedItem.Id))
             {
                 return false;
             }
@@ -181,13 +183,15 @@ namespace hci_restaurant.ViewModels
                     orderRepository.AddOrderHasItem(oId, o.Item, o.Quantity);
                 }
 
+                OrderModel order = orderRepository.GetOrderById(oId);
+                eventAggregator.GetEvent<PubSubEvent<OrderModel>>().Publish(order);
                 windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedOrder"));
             }
         }
 
         private bool CanExecuteAdding(object parameter)
         {
-            if (OrderHasItems.Count == 0)
+            if (OrderHasItems.Count == 0 || SelectedTable == null)
             {
                 return false;
             }

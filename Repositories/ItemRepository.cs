@@ -124,5 +124,23 @@ namespace hci_restaurant.Repositories
 
             return items;
         }
+
+        public void UpdateItem(int id, decimal price, int quantity)
+        {
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UpdateItem", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@id_", MySqlDbType.Int32).Value = id;
+                    command.Parameters.Add("@quantity_", MySqlDbType.Int32).Value = quantity;
+                    command.Parameters.Add("@price_", MySqlDbType.Decimal).Value = price;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

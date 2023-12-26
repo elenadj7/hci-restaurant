@@ -23,5 +23,6 @@ namespace hci_restaurant.Services
         void OpenProcurementDetailsWindow(string username, int procurementId);
         void OpenOrderDetailsWindow(string username, int orderId);
         void OpenAddNewOrderWindow();
+        void OpenUpdateItemWindow(ItemModel item);
     }
 }

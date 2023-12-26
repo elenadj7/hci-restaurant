@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,8 @@ namespace hci_restaurant.ViewModels
         private readonly IWindowService windowService = new WindowService();
         private readonly IItemRepository repository = new ItemRepository();
         private readonly ICategoryRepository categoryRepository = new CategoryRepository();
+        private readonly PubSubEvent<ItemModel> addedItem = App.EventAggregator.GetEvent<PubSubEvent<ItemModel>>();
+        private readonly PubSubEvent<Tuple<int, int, decimal>> modifiedItem = App.EventAggregator.GetEvent<PubSubEvent<Tuple<int, int, decimal>>>();
         private ObservableCollection<CategoryModel> categories = new();
         private CategoryModel selectedCategory = new()
         {
@@ -83,8 +86,23 @@ namespace hci_restaurant.ViewModels
             {
                 Categories.Add(t);
             }
+
+            addedItem.Subscribe(OnAddedItem);
+            modifiedItem.Subscribe(OnModifiedItem);
         }
-        
+
+        private void OnModifiedItem(Tuple<int, int, decimal> item)
+        {
+            ItemModel i = Items.Where(i => i.Id == item.Item1).FirstOrDefault();
+            i.Quantity = item.Item2;
+            i.Price = item.Item3;
+        }
+
+        private void OnAddedItem(ItemModel item)
+        {
+            Items.Add(item);
+        }
+
         private void ExecuteAddingItem(object parameter)
         {
             windowService.OpenAddNewItemWindow();
@@ -104,6 +122,7 @@ namespace hci_restaurant.ViewModels
                 {
                     repository.DeleteItem(item.Id);
                     items.Remove(item);
+                    ConfirmViewModel.CanBe = false;
                     windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + item.Name + "!");
                 }
             }
@@ -118,7 +137,7 @@ namespace hci_restaurant.ViewModels
         {
             if (parameter is ItemModel item)
             {
-                //TODO
+                windowService.OpenUpdateItemWindow(item);
             }
         }
 

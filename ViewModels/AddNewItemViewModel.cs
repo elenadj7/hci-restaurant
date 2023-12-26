@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +27,7 @@ namespace hci_restaurant.ViewModels
         private readonly ICategoryRepository categoryRepository = new CategoryRepository();
         private readonly IWindowService windowService = new WindowService();
         private readonly IItemRepository itemRepository = new ItemRepository();
+        private readonly EventAggregator eventAggregator = (EventAggregator)App.EventAggregator;
 
         public CategoryModel SelectedCategory
         {
@@ -122,6 +124,9 @@ namespace hci_restaurant.ViewModels
             };
 
             itemRepository.AddItem(item, SelectedCategory.Id);
+
+            eventAggregator.GetEvent<PubSubEvent<ItemModel>>().Publish(item);
+
             windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedItem"));
         }
     }

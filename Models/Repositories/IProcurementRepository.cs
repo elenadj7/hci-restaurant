@@ -15,5 +15,6 @@ namespace hci_restaurant.Models.Repositories
         ObservableCollection<ProcurementHasItemModel> GetItemDataByUsernameAndProcurementId(string username, int procurementId);
         void DeleteProcurement(int id);
         void DeleteProcurementHasItem(int procurementId, int itemId);
+        ProcurementModel GetProcurementById(int procurementId);
     }
 }

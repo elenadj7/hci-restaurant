@@ -2,6 +2,7 @@
 using hci_restaurant.Models.Repositories;
 using hci_restaurant.Repositories;
 using hci_restaurant.Services;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ namespace hci_restaurant.ViewModels
         private readonly IItemRepository itemRepository = new ItemRepository();
         private readonly IWindowService windowService = new WindowService();
         private readonly IProcurementRepository procurementRepository = new ProcurementRepository();
+        private readonly EventAggregator eventAggregator = (EventAggregator)App.EventAggregator;
 
         public ObservableCollection<ProcurementHasItemModel> ProcurementHasItems
         {
@@ -128,7 +130,7 @@ namespace hci_restaurant.ViewModels
 
         private bool CanExecuteAddingItem(object parameter)
         {
-            if (SelectedItem == null)
+            if (SelectedItem == null || ProcurementHasItems.Any(p => p.Item.Id == SelectedItem.Id))
             {
                 return false;
             }
@@ -167,6 +169,8 @@ namespace hci_restaurant.ViewModels
                     procurementRepository.AddProcurementHasItem(pId, p.Item, p.PurchasePrice, p.Quantity);
                 }
 
+                ProcurementModel procurement = procurementRepository.GetProcurementById(pId);
+                eventAggregator.GetEvent<PubSubEvent<ProcurementModel>>().Publish(procurement);
                 windowService.OpenAlertWindow((string)Application.Current.TryFindResource("AddedProcurement"));
             }
         }

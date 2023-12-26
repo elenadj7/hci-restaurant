@@ -4,7 +4,10 @@ using hci_restaurant.Repositories;
 using hci_restaurant.Services;
 using hci_restaurant.Views;
 using MySqlConnector;
+using Prism.Events;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WPF_LoginForm.ViewModels;
@@ -16,6 +19,8 @@ namespace hci_restaurant.ViewModels
         private ObservableCollection<UserModel> users = new();
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly IWindowService windowService = new WindowService();
+        private readonly PubSubEvent<UserModel> addedUser= App.EventAggregator.GetEvent<PubSubEvent<UserModel>>();
+        private readonly PubSubEvent<Tuple<string, int>> modifiedUser = App.EventAggregator.GetEvent<PubSubEvent<Tuple<string, int>>>();
         private string filter;
 
         public string Filter
@@ -50,6 +55,19 @@ namespace hci_restaurant.ViewModels
             EditUserCommand = new ViewModelCommand(ExecuteEditing, CanExecuteEdit);
             AddNewUserCommand = new ViewModelCommand(ExecuteAddNewUser);
             FilterCommand = new ViewModelCommand(ExecuteFilter);
+
+            addedUser.Subscribe(OnAddedUser);
+            modifiedUser.Subscribe(OnModifiedUser);
+        }
+
+        private void OnModifiedUser(Tuple<string, int> user)
+        {
+            Users.Where(u => u.Username.Equals(user.Item1)).FirstOrDefault().Salary = user.Item2;
+        }
+
+        private void OnAddedUser(UserModel user)
+        {
+            Users.Add(user);
         }
 
         private void ExecuteFilter(object parameter)
@@ -71,6 +89,7 @@ namespace hci_restaurant.ViewModels
                 {
                     userRepository.DeleteUser(user.Username);
                     users.Remove(user);
+                    ConfirmViewModel.CanBe = false;
                     windowService.OpenAlertWindow((string)Application.Current.TryFindResource("Deleted") + " " + user.Username + "!");
                 }
             }
