@@ -349,6 +349,6 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE UpdateItem(IN id_ INT, IN price_ DECIMAL, IN quantity_ INT)
 BEGIN
-    SELECT * FROM `Procurement` WHERE id = id_;
+    UPDATE `Item` SET price = price_, quantity = quantity_ WHERE id = id_;
 END $$
 DELIMITER ;
