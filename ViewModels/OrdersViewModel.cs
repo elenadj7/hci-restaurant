@@ -17,13 +17,102 @@ namespace hci_restaurant.ViewModels
     {
         private ObservableCollection<UserModel> users;
         private ObservableCollection<OrderModel> orders;
+        private ObservableCollection<string> months = new();
+        private ObservableCollection<string> years = new();
         private UserModel selectedUser;
+        private string selectedMonth;
+        private string selectedYear;
         private string filter;
         private string username;
         private readonly IWindowService windowService = new WindowService();
         private readonly IOrderRepository orderRepository = new OrderRepository();
         private readonly IUserRepository userRepository = new UserRepository();
         private readonly PubSubEvent<OrderModel> addedOrder = App.EventAggregator.GetEvent<PubSubEvent<OrderModel>>();
+
+
+        public ObservableCollection<string> Years
+        {
+            get { return years; }
+            set
+            {
+                years = value;
+                OnPropertyChanged(nameof(Years));
+            }
+        }
+
+        public ObservableCollection<string> Months
+        {
+            get { return months; }
+            set
+            {
+                months = value;
+                OnPropertyChanged(nameof(Months));
+            }
+        }
+
+        public string SelectedMonth
+        {
+            get { return selectedMonth; }
+            set
+            {
+                selectedMonth = value;
+                OnPropertyChanged(nameof(selectedMonth));
+                if (selectedMonth.Equals((string)Application.Current.TryFindResource("All")))
+                {
+                    if (selectedYear.Equals((string)Application.Current.TryFindResource("All")))
+                    {
+                        Orders = orderRepository.GetAllByUsername(selectedUser.Username);
+                    }
+                    else
+                    {
+                        Orders = orderRepository.GetAllByYear(selectedUser.Username, int.Parse(selectedYear));
+                    }
+                }
+                else
+                {
+                    if (selectedYear.Equals((string)Application.Current.TryFindResource("All")))
+                    {
+                        Orders = orderRepository.GetAllByMonth(selectedUser.Username, int.Parse(selectedMonth));
+                    }
+                    else
+                    {
+                        Orders = orderRepository.GetAllByYearAndMonth(selectedUser.Username, int.Parse(selectedYear), int.Parse(selectedMonth));
+                    }
+                }
+            }
+        }
+
+        public string SelectedYear
+        {
+            get => selectedYear;
+            set
+            {
+                selectedYear = value;
+                OnPropertyChanged(nameof(SelectedYear));
+                if (selectedYear.Equals((string)Application.Current.TryFindResource("All")))
+                {
+                    if (selectedMonth.Equals((string)Application.Current.TryFindResource("All")))
+                    {
+                        Orders = orderRepository.GetAllByUsername(selectedUser.Username);
+                    }
+                    else
+                    {
+                        Orders = orderRepository.GetAllByMonth(selectedUser.Username, int.Parse(selectedMonth));
+                    }
+                }
+                else
+                {
+                    if (selectedMonth.Equals((string)Application.Current.TryFindResource("All")))
+                    {
+                        Orders = orderRepository.GetAllByYear(selectedUser.Username, int.Parse(selectedYear));
+                    }
+                    else
+                    {
+                        Orders = orderRepository.GetAllByYearAndMonth(selectedUser.Username, int.Parse(selectedYear), int.Parse(selectedMonth));
+                    }
+                }
+            }
+        }
 
         public ObservableCollection<UserModel> Users
         {
@@ -78,6 +167,7 @@ namespace hci_restaurant.ViewModels
             AddOrderCommand = new ViewModelCommand(ExecuteAddOrder);
             Users = userRepository.GetAll();
 
+            FillMonthsAndYears();
             LoadCurrentUser();
             addedOrder.Subscribe(OnAddedOrder);
         }
@@ -85,6 +175,25 @@ namespace hci_restaurant.ViewModels
         private void OnAddedOrder(OrderModel order)
         {
             Orders.Add(order);
+        }
+
+        private void FillMonthsAndYears()
+        {
+            months.Add((string)Application.Current.TryFindResource("All"));
+            years.Add((string)Application.Current.TryFindResource("All"));
+
+            for (int i = 1; i <= 12; i++)
+            {
+                months.Add(i + "");
+            }
+
+            for (int i = 2010; i <= 2023; ++i)
+            {
+                years.Add(i + "");
+            }
+
+            selectedMonth = months.ElementAt(0);
+            selectedYear = years.ElementAt(0);
         }
 
         private void LoadCurrentUser()
@@ -113,7 +222,7 @@ namespace hci_restaurant.ViewModels
 
         private bool CanExecuteShowDetails(object parameter)
         {
-            return parameter is OrderModel orderModel;
+            return parameter is OrderModel;
         }
 
         private void ExecuteDelete(object parameter)

@@ -4,6 +4,7 @@ using MySqlConnector;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Media;
 
 namespace hci_restaurant.Repositories
 {
@@ -210,6 +211,112 @@ namespace hci_restaurant.Repositories
             }
 
             return o;
+        }
+
+        public ObservableCollection<OrderModel> GetAllByYear(string username, int year)
+        {
+            ObservableCollection<OrderModel> orders = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterOrdersByYear", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@year_", MySqlDbType.Int32).Value = year;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderModel order = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                Created = reader.GetDateTime(1),
+                                TableId = reader.GetInt32(2),
+                                UserUsername = reader.GetString(3)
+                            };
+
+                            orders.Add(order);
+                        }
+                    }
+                }
+            }
+
+            return orders;
+        }
+
+        public ObservableCollection<OrderModel> GetAllByMonth(string username, int month)
+        {
+            ObservableCollection<OrderModel> orders = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterOrdersByMonth", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@month_", MySqlDbType.Int32).Value = month;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderModel order = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                Created = reader.GetDateTime(1),
+                                TableId = reader.GetInt32(2),
+                                UserUsername = reader.GetString(3)
+                            };
+
+                            orders.Add(order);
+                        }
+                    }
+                }
+            }
+
+            return orders;
+        }
+
+        public ObservableCollection<OrderModel> GetAllByYearAndMonth(string username, int year, int month)
+        {
+            ObservableCollection<OrderModel> orders = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterOrdersByYearAndMonth", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@year_", MySqlDbType.Int32).Value = year;
+                    command.Parameters.Add("@month_", MySqlDbType.Int32).Value = month;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderModel order = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                Created = reader.GetDateTime(1),
+                                TableId = reader.GetInt32(2),
+                                UserUsername = reader.GetString(3)
+                            };
+
+                            orders.Add(order);
+                        }
+                    }
+                }
+            }
+
+            return orders;
         }
     }
 }

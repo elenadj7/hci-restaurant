@@ -252,7 +252,7 @@ BEGIN
     DECLARE randomSeats INT;
     DECLARE tmp iNT;
 
-    WHILE counter <= 25 DO
+    WHILE counter <= 10 DO
         SET randomSeats = FLOOR(RAND() * (10 - 2 + 1)) + 2;
         CALL AddTable(randomSeats, tmp);
         SET counter = counter + 1;
@@ -368,5 +368,53 @@ DELIMITER $$
 CREATE PROCEDURE UpdateTable(IN id_ INT, IN seats_number_ INT)
 BEGIN
     UPDATE `Table` SET seats_number = seats_number_ WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterProcurementsByYear(IN year_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Procurement` WHERE YEAR(ordered) = year_ AND user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterProcurementsByMonth(IN month_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Procurement` WHERE MONTH(ordered) = month_ AND user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterProcurementsByYearAndMonth(IN year_ INT, IN month_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Procurement` WHERE MONTH(ordered) = month_ AND user_username = user_username_ AND YEAR(ordered) = year_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterOrdersByYear(IN year_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Order` WHERE YEAR(created) = year_ AND user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterOrdersByMonth(IN month_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Order` WHERE MONTH(created) = month_ AND user_username = user_username_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE FilterOrdersByYearAndMonth(IN year_ INT, IN month_ INT, IN user_username_ VARCHAR(255))
+BEGIN
+    SELECT * FROM `Order` WHERE MONTH(created) = month_ AND user_username = user_username_ AND YEAR(created) = year_;
 END $$
 DELIMITER ;

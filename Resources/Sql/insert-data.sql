@@ -55,3 +55,21 @@ CALL AddItem('Mojito', 7.50, 'Refreshing minty cocktail', ROUND(RAND() * 100), 3
 CALL AddItem('Iced Latte', 4.00, 'Chilled espresso with milk', ROUND(RAND() * 100), 3);
 
 CALL AddRandomTables();
+
+INSERT INTO `Order`(id, created, table_id, user_username) VALUES(1, "2018-10-10", 1, "elena");
+INSERT INTO `Order`(id, created, table_id, user_username) VALUES(2, "2023-11-18", 2, "elena");
+INSERT INTO `Order`(id, created, table_id, user_username) VALUES(3, "2019-08-08", 1, "aliceSmith");
+
+INSERT INTO `Order_has_Item`(order_id, item_id, quantity) VALUES(1, 9, 2);
+INSERT INTO `Order_has_Item`(order_id, item_id, quantity) VALUES(1, 17, 2);
+INSERT INTO `Order_has_Item`(order_id, item_id, quantity) VALUES(3, 9, 1);
+INSERT INTO `Order_has_Item`(order_id, item_id, quantity) VALUES(3, 17, 1);
+INSERT INTO `Order_has_Item`(order_id, item_id, quantity) VALUES(2, 10, 4);
+
+INSERT INTO `Procurement` (id, user_username, ordered) VALUES (1, "aliceSmith", "2023-11-18");
+INSERT INTO `Procurement_has_Item`(procurement_id, item_id, quantity, purchase_price) 
+VALUES(1, 1, 20, 2.70);
+
+INSERT INTO `Procurement` (id, user_username, ordered) VALUES (2, "elena", "2017-04-06");
+INSERT INTO `Procurement_has_Item`(procurement_id, item_id, quantity, purchase_price) 
+VALUES(2, 5, 13, 4.40);

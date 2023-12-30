@@ -5,6 +5,9 @@ namespace hci_restaurant.Models.Repositories
     public interface IOrderRepository
     {
         ObservableCollection<OrderModel> GetAllByUsername(string username);
+        ObservableCollection<OrderModel> GetAllByYear(string username, int year);
+        ObservableCollection<OrderModel> GetAllByMonth(string username, int month);
+        ObservableCollection<OrderModel> GetAllByYearAndMonth(string username, int year, int month);
         int AddOrder(int tableId, string userUsername);
         int AddOrderWithNote(int tableId, string note, string userUsername);
         void DeleteOrder(int orderId);

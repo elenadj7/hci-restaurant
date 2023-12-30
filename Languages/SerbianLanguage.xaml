@@ -66,4 +66,10 @@
     <system:String x:Key="AddedOrder">Narudžba uspješno dodana!</system:String>
     <system:String x:Key="seats">mjesta</system:String>
     <system:String x:Key="AddNewTable">Dodaj sto</system:String>
+    <system:String x:Key="Seats">Mjesta</system:String>
+    <system:String x:Key="Tables">Stolovi</system:String>
+    <system:String x:Key="AlertNewTable">Mjesto je broj!</system:String>
+    <system:String x:Key="AddedTable">Sto uspješno dodan!</system:String>
+    <system:String x:Key="UpdatedTable">Sto uspješno izmijenjen!</system:String>
+    <system:String x:Key="All">Svi</system:String>
 </ResourceDictionary>

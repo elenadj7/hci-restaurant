@@ -72,4 +72,5 @@
     <system:String x:Key="AlertNewTable">Seats is number!</system:String>
     <system:String x:Key="AddedTable">Table successfully added!</system:String>
     <system:String x:Key="UpdatedTable">Table successfully updated!</system:String>
+    <system:String x:Key="All">All</system:String>
 </ResourceDictionary>

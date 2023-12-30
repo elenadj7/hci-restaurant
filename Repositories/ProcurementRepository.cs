@@ -188,5 +188,108 @@ namespace hci_restaurant.Repositories
 
             return p;
         }
+
+        public ObservableCollection<ProcurementModel> GetAllByYear(string username, int year)
+        {
+            ObservableCollection<ProcurementModel> procurements = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterProcurementsByYear", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@year_", MySqlDbType.Int32).Value = year;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ProcurementModel procurement = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                UserUsername = reader.GetString(1),
+                                Ordered = reader.GetDateTime(2),
+                            };
+
+                            procurements.Add(procurement);
+                        }
+                    }
+                }
+            }
+
+            return procurements;
+        }
+
+        public ObservableCollection<ProcurementModel> GetAllByMonth(string username, int month)
+        {
+            ObservableCollection<ProcurementModel> procurements = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterProcurementsByMonth", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@month_", MySqlDbType.Int32).Value = month;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ProcurementModel procurement = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                UserUsername = reader.GetString(1),
+                                Ordered = reader.GetDateTime(2),
+                            };
+
+                            procurements.Add(procurement);
+                        }
+                    }
+                }
+            }
+
+            return procurements;
+        }
+
+        public ObservableCollection<ProcurementModel> GetAllByYearAndMonth(string username, int year, int month)
+        {
+            ObservableCollection<ProcurementModel> procurements = new();
+            using (MySqlConnection connection = RepositoryBase.GetConnection())
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("FilterProcurementsByYearAndMonth", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@user_username_", MySqlDbType.String).Value = username;
+                    command.Parameters.Add("@year_", MySqlDbType.Int32).Value = year;
+                    command.Parameters.Add("@month_", MySqlDbType.Int32).Value = month;
+                    command.ExecuteNonQuery();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ProcurementModel procurement = new()
+                            {
+                                Id = reader.GetInt32(0),
+                                UserUsername = reader.GetString(1),
+                                Ordered = reader.GetDateTime(2),
+                            };
+
+                            procurements.Add(procurement);
+                        }
+                    }
+                }
+            }
+
+            return procurements;
+        }
     }
 }
