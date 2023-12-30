@@ -60,6 +60,13 @@
                         </StackPanel>
                     </RadioButton>
 
+                    <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource TablesRadioButton}" IsChecked="{Binding TablesSelected}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Resources/Images/tables.png" Width="30" Height="30" Margin="50,0,0,0"/>
+                            <TextBlock Text="{DynamicResource Tables}" Foreground="{DynamicResource BackgroundText}" FontSize="13" Margin="20,0,0,0" FontFamily="{DynamicResource MyFont}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+
                     <RadioButton Style="{DynamicResource MenuButton}" Tag="{DynamicResource SettingsRadioButton}" IsChecked="{Binding SettingsSelected}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Resources/Images/settings.png" Width="30" Height="30" Margin="50,0,0,0"/>

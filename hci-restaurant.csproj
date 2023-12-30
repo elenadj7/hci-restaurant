@@ -22,6 +22,7 @@
     <None Remove="Resources\Images\orders.png" />
     <None Remove="Resources\Images\procurements.png" />
     <None Remove="Resources\Images\settings.png" />
+    <None Remove="Resources\Images\tables.png" />
     <None Remove="Resources\Images\theme.png" />
     <None Remove="Resources\Images\users.png" />
   </ItemGroup>
@@ -49,6 +50,7 @@
     <Resource Include="Resources\Images\orders.png" />
     <Resource Include="Resources\Images\procurements.png" />
     <Resource Include="Resources\Images\settings.png" />
+    <Resource Include="Resources\Images\tables.png" />
     <Resource Include="Resources\Images\users.png" />
   </ItemGroup>
 

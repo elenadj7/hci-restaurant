@@ -221,9 +221,10 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE AddTable(IN seats_number_ INT)
+CREATE PROCEDURE AddTable(IN seats_number_ INT, OUT id_ INT)
 BEGIN
     INSERT INTO `Table`(seats_number) VALUES (seats_number_);
+    SELECT LAST_INSERT_ID() INTO id_;
 END $$
 DELIMITER ;
 
@@ -249,10 +250,11 @@ CREATE PROCEDURE AddRandomTables()
 BEGIN
     DECLARE counter INT DEFAULT 1;
     DECLARE randomSeats INT;
+    DECLARE tmp iNT;
 
     WHILE counter <= 25 DO
         SET randomSeats = FLOOR(RAND() * (10 - 2 + 1)) + 2;
-        CALL AddTable(randomSeats);
+        CALL AddTable(randomSeats, tmp);
         SET counter = counter + 1;
     END WHILE;
 END $$
@@ -350,5 +352,21 @@ DELIMITER $$
 CREATE PROCEDURE UpdateItem(IN id_ INT, IN price_ DECIMAL, IN quantity_ INT)
 BEGIN
     UPDATE `Item` SET price = price_, quantity = quantity_ WHERE id = id_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE GetTablesByFilter(IN filter_ INT)
+BEGIN
+    SELECT * FROM `Table` WHERE seats_number = filter_;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE UpdateTable(IN id_ INT, IN seats_number_ INT)
+BEGIN
+    UPDATE `Table` SET seats_number = seats_number_ WHERE id = id_;
 END $$
 DELIMITER ;

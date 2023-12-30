@@ -15,7 +15,7 @@
     <system:String x:Key="Surname">Surname</system:String>
     <system:String x:Key="Salary">Salary</system:String>
     <system:String x:Key="Role">Role</system:String>
-    <system:String x:Key="AddNewUser">Add New User</system:String>
+    <system:String x:Key="AddNewUser">Add User</system:String>
     <system:String x:Key="Filter">Filter:</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Theme">Theme</system:String>
@@ -35,7 +35,7 @@
     <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="UsernameExists">Username already exists!</system:String>
     <system:String x:Key="AddedUser">User successfully added!</system:String>
-    <system:String x:Key="AddNewItem">Add New Item</system:String>
+    <system:String x:Key="AddNewItem">Add Item</system:String>
     <system:String x:Key="AddNewCategory">Add Category</system:String>
     <system:String x:Key="Price">Price</system:String>
     <system:String x:Key="Available">Available</system:String>
@@ -66,4 +66,10 @@
     <system:String x:Key="AlertNewOrder">Quantity is number!</system:String>
     <system:String x:Key="AddedOrder">Order successfully added!</system:String>
     <system:String x:Key="seats">seats</system:String>
+    <system:String x:Key="AddNewTable">Add Table</system:String>
+    <system:String x:Key="Seats">Seats</system:String>
+    <system:String x:Key="Tables">Tables</system:String>
+    <system:String x:Key="AlertNewTable">Seats is number!</system:String>
+    <system:String x:Key="AddedTable">Table successfully added!</system:String>
+    <system:String x:Key="UpdatedTable">Table successfully updated!</system:String>
 </ResourceDictionary>

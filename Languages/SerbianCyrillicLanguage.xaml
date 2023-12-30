@@ -65,4 +65,5 @@
     <system:String x:Key="AlertNewOrder">Количина мора бити број!</system:String>
     <system:String x:Key="AddedOrder">Наруџба успјешно додана!</system:String>
     <system:String x:Key="seats">мјеста</system:String>
+    <system:String x:Key="AddNewTable">Додај сто</system:String>
 </ResourceDictionary>

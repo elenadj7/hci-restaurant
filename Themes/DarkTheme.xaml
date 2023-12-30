@@ -14,6 +14,7 @@
     <Color x:Key="MenuGradient2">#370617</Color>
     <SolidColorBrush x:Key="UserRadioButton" Color="#EEEEEE"/>
     <SolidColorBrush x:Key="SettingsRadioButton" Color="#9ED2BE"/>
+    <SolidColorBrush x:Key="TablesRadioButton" Color="#5FC7FF"/>
     <SolidColorBrush x:Key="ProcurementsRadioButton" Color="#E9B384"/>
     <SolidColorBrush x:Key="LogOutRadioButton" Color="#CE5A67"/>
     <SolidColorBrush x:Key="ErrorText" Color="red"/>

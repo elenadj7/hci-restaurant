@@ -18,6 +18,7 @@ namespace hci_restaurant.ViewModels
         private bool usersSelected = true;
         private bool itemsSelected = false;
         private bool settingsSelected = false;
+        private bool tablesSelected = false;
 
         private Page currentPage = new UsersPage();
 
@@ -51,6 +52,20 @@ namespace hci_restaurant.ViewModels
                 if (usersSelected)
                 {
                     CurrentPage = new UsersPage();
+                }
+            }
+        }
+
+        public bool TablesSelected
+        {
+            get { return tablesSelected; }
+            set
+            {
+                tablesSelected = value;
+                OnPropertyChanged(nameof(TablesSelected));
+                if(tablesSelected)
+                {
+                    CurrentPage = new TablesPage();
                 }
             }
         }
