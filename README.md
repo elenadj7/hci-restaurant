@@ -93,10 +93,13 @@ Procurements are created similarly to orders, with the addition of specifying th
 #### Settings (Regular User)
 Regular users have the option to customize settings such as themes and languages in the same manner as the administrator.
 
+
 ## How to Run
 1. Clone or download this repository
-2. Open the solution file (hci-tetris.sln) in Visual Studio or your preferred WPF development environment.
+2. Open the solution file (hci-restaurant.sln) in Visual Studio or your preferred WPF development environment.
 3. Build and run the project to start the game.
+
+
 ## User Interface 
 ![1](https://github.com/elenadj7/hci-restaurant/assets/92872835/7ec6ed9e-2016-4030-9144-c0becbd9dfb3)
 ![2](https://github.com/elenadj7/hci-restaurant/assets/92872835/2f39313a-eb4f-41da-9910-4fdfa4acc164)
