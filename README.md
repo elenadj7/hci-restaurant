@@ -97,7 +97,7 @@ Regular users have the option to customize settings such as themes and languages
 ## How to Run
 1. Clone or download this repository
 2. Open the solution file (hci-restaurant.sln) in Visual Studio or your preferred WPF development environment.
-3. Build and run the project to start the game.
+3. Build and run the project.
 
 
 ## User Interface 
